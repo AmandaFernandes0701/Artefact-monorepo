@@ -9,7 +9,7 @@
     3. [API Endpoints & Business Logic](#backend-api-endpoints)
     4. [Validation and Error Handling](#backend-validation)
     5. [Technology Stack](#backend-technology)
-    6. [Folder Structure & Workflow](#backend-folder-structure)
+    6. [Workflow](#backend-workflow)
 3. [Frontend](#frontend)
     1. [Software Architecture](#frontend-architecture)
     2. [Component Structure](#frontend-components)
@@ -38,7 +38,21 @@ This project was developed as a technical challenge for a Fullstack Developer po
 ## Backend
 
 ### Software Architecture <a name="backend-architecture"></a>
-
+The backend repository is organized to reflect its layered architecture:
+```
+📦 backend  
+ ┣ 📂 dist                       # Arquivos JavaScript compilados (output do TypeScript)
+ ┃ ┗ 📂 src                      # Código compilado do backend
+ ┣ 📂 src                        # Código-fonte do backend
+ ┃ ┣ 📂 application              # Casos de uso (ex.: TarefaUseCases.ts)
+ ┃ ┣ 📂 config                   # Configurações e variáveis de ambiente
+ ┃ ┣ 📂 domain                   # Modelos de domínio e entidades de negócio (ex.: Tarefa.ts) 
+ ┃ ┣ 📂 infrastructure           # Integrações futuras (banco de dados, APIs externas)
+ ┃ ┣ 📂 presentation             # Rotas e controladores da API (ex.: TarefaRouter.ts)
+ ┃ ┣ 📂 utils                    # Funções utilitárias e tratamento de erros 
+ ┃ ┣ 📜 server.ts                # Ponto de entrada; configura servidor e middlewares
+ ┃ ┗ 📜 errorMessages.ts         # Mensagens de erro centralizadas para consistência
+```
 The backend is architected with a strong emphasis on modularity, separation of concerns, and adherence to Clean Architecture principles. The design ensures that each layer can evolve independently while maintaining a consistent contract across the application. Key architectural patterns include:
 
 - **Layered Approach:**
@@ -102,25 +116,7 @@ Robust validation and error handling mechanisms are critical for maintaining app
 
 These technologies were chosen for their proven track records in building scalable and maintainable applications, enabling rapid development without compromising on quality.
 
-### Folder Structure & Workflow <a name="backend-folder-structure"></a>
-
-The backend repository is organized to reflect its layered architecture:
-```
-📦 backend  
- ┣ 📂 dist                       # Arquivos JavaScript compilados (output do TypeScript)
- ┃ ┗ 📂 src                      # Código compilado do backend
- ┣ 📂 src                        # Código-fonte do backend
- ┃ ┣ 📂 application              # Casos de uso (ex.: TarefaUseCases.ts)
- ┃ ┣ 📂 config                   # Configurações e variáveis de ambiente
- ┃ ┣ 📂 domain                   # Modelos de domínio e entidades de negócio (ex.: Tarefa.ts) 
- ┃ ┣ 📂 infrastructure           # Integrações futuras (banco de dados, APIs externas)
- ┃ ┣ 📂 presentation             # Rotas e controladores da API (ex.: TarefaRouter.ts)
- ┃ ┣ 📂 utils                    # Funções utilitárias e tratamento de erros 
- ┃ ┣ 📜 server.ts                # Ponto de entrada; configura servidor e middlewares
- ┃ ┗ 📜 errorMessages.ts         # Mensagens de erro centralizadas para consistência
-```
-
-**Workflow Overview:**
+### Workflow: <a name="backend-workflow></a>
 
 1. **Request Handling:**  
    - Incoming HTTP requests are first processed by the **presentation** layer.
