@@ -1,150 +1,181 @@
-# Artefact Project - monorepo
+# Artefact Project - Task Management Application
 
 ## Table of Contents
 
 1.  [Introduction](#introduction)
-2.  [Software Architecture](#software-architecture)
-3.  [Backend (tRPC)](#backend-trpc)
-    1.  [Data Modeling](#data-modeling)
-    2.  [API Endpoints & Business Logic](#api-endpoints--business-logic)
-    3.  [Validation and Error Handling](#validation-and-error-handling)
-4.  [Technology Stack](#technology-stack)
-5.  [Frontend (Next.js)](#frontend-nextjs)
-6.  [Development Workflow](#development-workflow)
-    1.  [Running the Application](#running-the-application)
-    2.  [Testing with Postman](#testing-with-postman)
-7.  [Future Enhancements](#future-enhancements)
-8.  [Conclusion](#conclusion)
+2.  [Backend](#backend)
+    1.  [Software Architecture](#backend-architecture)
+    2.  [Data Modeling](#backend-data-modeling)
+    3.  [API Endpoints & Business Logic](#backend-api-endpoints)
+    4.  [Validation and Error Handling](#backend-validation)
+    5.  [Technology Stack](#backend-technology)
+    6.  [Folder Structure & Workflow](#backend-folder-structure)
+3.  [Frontend](#frontend)
+    1.  [Software Architecture](#frontend-architecture)
+    2.  [Component Structure](#frontend-components)
+    3.  [State Management](#frontend-state)
+    4.  [User Interface & Experience](#frontend-ui)
+    5.  [Technology Stack](#frontend-technology)
+4.  [Development Workflow](#development-workflow)
+    1.  [Running the Application](#running-app)
+    2.  [Testing](#testing)
+5.  [Future Enhancements](#future-enhancements)
+6.  [Conclusion](#conclusion)
 
 ---
 
 ## Introduction
 
-The Artefact project is a task management application designed to streamline personal productivity. This repository houses the backend component, a robust and efficient API built with tRPC, serving as the central data management hub for the application.
+Artefact is a task management application designed to boost personal productivity. This repository contains the complete source code for both the backend API and the user-facing frontend.
 
-This project was conceived as a practical exercise, focusing on building a Next.js (v15) application with a task management system at its core. The backend, leveraging tRPC, maintains the task list in memory (for simplicity, without database persistence) and exposes endpoints for the frontend to consume.
+The project was developed as a practical exercise for a technical challenge, focusing on building a Next.js (v15) application with a task management system. The primary goal was to demonstrate the ability to integrate a frontend and backend effectively, adhering to the challenge requirements.
 
 **Key Features:**
 
-*   **Task Creation:** Users can add new tasks with a title (required), description (optional), and creation timestamp.
-*   **Task Listing:** Retrieves a comprehensive list of all existing tasks.
-*   **Task Updates:** Enables modification of existing task details.
-*   **Task Deletion:** Allows removal of tasks from the list.
-
-**Project Goals:**
-
-*   Develop a well-structured and maintainable backend API.
-*   Implement robust validation and error handling.
-*   Provide a seamless integration experience for the frontend.
-*   Showcase best practices in software architecture and development.
+*   Create, list, update, and delete tasks.
+*   Intuitive user interface for task management.
+*   Robust validation and error handling.
 
 ---
 
-## Software Architecture
+## Backend
 
-The backend architecture emphasizes modularity, scalability, and maintainability. It follows a layered approach, separating concerns into distinct modules:
+### Software Architecture <a name="backend-architecture"></a>
 
-*   **Controllers:** Handle incoming requests, orchestrate business logic execution, and return responses.
-*   **Services:** Encapsulate core business logic, ensuring code reusability and testability.
-*   **Data Models:** Define the structure of data entities (tasks), promoting consistency and type safety.
-*   **Repositories (Optional):** Abstract data access logic, enabling easy switching of data storage mechanisms.
-*   **Utilities:** House helper functions and common logic used across the application.
+The backend architecture prioritizes modularity, scalability, and maintainability, even though the project scope is intentionally simple. It follows a layered approach inspired by Clean Architecture principles:
 
-This architecture promotes:
+*   **Application (Use Cases):** Contains specific business logic for each operation (e.g., `TarefaUseCases.ts` for task-related actions).
+*   **Domain (Entities):** Defines core data structures and business rules (`Tarefa.ts` represents a task entity).
+*   **Infrastructure:** Handles external concerns like database access, API calls, or external services (not used in this simplified version).
+*   **Presentation (Routers):** Exposes API endpoints and handles request/response cycles (`TarefaRouter.ts` manages task routes).
+*   **Utils:** Contains helper functions and shared logic (`errorHandler.ts`, `TerrorMessages.ts`).
 
-*   **Loose Coupling:** Changes in one module have minimal impact on others.
-*   **High Cohesion:** Each module has a specific responsibility.
-*   **Testability:** Individual modules can be easily unit tested.
+While this project doesn't utilize a database or external services, the architecture is designed with the idea of easily extending it in the future. For example, if we needed to persist tasks in a database, we could add a `repositories` layer in the Infrastructure folder to handle data access logic.
+
+### Data Modeling <a name="backend-data-modeling"></a>
+
+Tasks have the following attributes:
+
+*   `id`: Unique identifier (UUID).
+*   `title`: Task title (required, string).
+*   `description`: Task details (optional, string).
+*   `createdAt`: Creation timestamp.
+
+### API Endpoints & Business Logic <a name="backend-api-endpoints"></a>
+
+The tRPC API offers:
+
+*   `createTask`: Creates a task, validates input.
+*   `listTasks`: Retrieves all tasks.
+*   `updateTask`: Updates a task, ensures existence and valid input.
+*   `deleteTask`: Deletes a task, verifies existence.
+
+Business logic resides in use cases, ensuring separation of concerns.
+
+### Validation and Error Handling <a name="backend-validation"></a>
+
+*   **Input Validation:** Zod validates incoming data for type safety.
+*   **Error Handling:** Custom error classes represent scenarios, providing messages.
+*   **Centralized Handling:** Middleware captures errors, creates user-friendly responses.
+
+### Technology Stack <a name="backend-technology"></a>
+
+*   Node.js (v18+)
+*   Express.js (v4+)
+*   tRPC (v10+)
+*   Zod (v3+)
+*   TypeScript (v5+)
+
+### Folder Structure & Workflow <a name="backend-folder-structure"></a>
+
+*   **dist:** Contains the compiled JavaScript files (output of the TypeScript compiler).
+*   **src:** Contains the source code of the backend application.
+    *   **application:** Holds use cases, each representing a specific action a user can take.
+    *   **config:** Stores environment variables and configuration settings.
+    *   **domain:** Defines the entities and value objects of the domain.
+    *   **infrastructure:** Handles external concerns (not used in this simplified version).
+    *   **presentation:** Manages API routes and request/response handling.
+    *   **utils:** Contains utility functions and shared logic.
+    *   **server.ts:** Entry point of the backend application, sets up the server and connects the different parts.
+    *   **TerrorMessages.ts:** Centralizes error messages for consistency.
+
+The workflow is as follows:
+
+1.  Requests come in through the **presentation** layer (routers).
+2.  Routers call the appropriate **use cases** in the **application** layer.
+3.  Use cases interact with **domain** entities and potentially **infrastructure** (if it existed) to perform actions.
+4.  Use cases return results to routers, which format the response and send it back to the client.
 
 ---
 
-## Backend (tRPC)
+## Frontend
 
-### Data Modeling
+### Software Architecture <a name="frontend-architecture"></a>
 
-Tasks are modeled with the following attributes:
+The frontend architecture is component-based, utilizing Next.js features:
 
-*   `id`: A unique identifier (UUID) for each task.
-*   `title`: The task's title (required, string).
-*   `description`: Additional details about the task (optional, string).
-*   `createdAt`: Timestamp of task creation.
+*   **Pages:** Represent application routes, handle user interactions.
+*   **Components:** Reusable UI elements, promoting modularity.
+*   **Contexts:** Manage global state, provide data to components.
+*   **Hooks:** Access state and side effects within components.
 
-### API Endpoints & Business Logic
+This architecture fosters organization, maintainability, and reusability.
 
-The tRPC API provides the following endpoints:
+### Component Structure <a name="frontend-components"></a>
 
-*   `createTask`: Creates a new task, validating input and returning the created task.
-*   `listTasks`: Retrieves all tasks, potentially with pagination or filtering in the future.
-*   `updateTask`: Updates an existing task, ensuring the task exists and input is valid.
-*   `deleteTask`: Deletes a task, verifying its existence before removal.
+Key components include:
 
-Business logic is implemented within services, ensuring clear separation of concerns.
+*   `TaskList`: Displays a list of tasks.
+*   `TaskForm`: Allows creating/updating tasks.
+*   `Header`: Application header with navigation.
+*   `Layout`: Provides consistent layout across pages.
 
-### Validation and Error Handling
+### State Management <a name="frontend-state"></a>
 
-*   **Input Validation:** Zod is used to validate all incoming data, ensuring type safety and preventing invalid data from entering the system.
-*   **Error Handling:** Custom error classes are used to represent specific error scenarios, providing informative messages to the frontend.
-*   **Centralized Error Handling:** Middleware captures errors and transforms them into user-friendly responses.
+State is managed using React Context and hooks, providing a centralized and efficient way to handle data flow.
 
----
+### User Interface & Experience <a name="frontend-ui"></a>
 
-## Technology Stack
+The UI focuses on simplicity and usability:
 
-*   **Node.js (v18+):** The runtime environment for the backend.
-*   **Express.js (v4+):** A web framework for building the API.
-*   **tRPC (v10+):** A library for creating type-safe APIs.
-*   **Zod (v3+):** A schema validation library.
-*   **TypeScript (v5+):** A typed superset of JavaScript.
-*   **Jest (v29+):** A testing framework for unit and integration tests.
+*   Clear task representation.
+*   Intuitive form for task creation/updates.
+*   Feedback messages for actions.
+*   Responsive design for various devices.
 
----
+### Technology Stack <a name="frontend-technology"></a>
 
-## Frontend (Next.js)
-
-(Details about the frontend implementation, including technologies used, architecture, and key features.)
+*   Next.js (v15+)
+*   React (v18+)
+*   TypeScript (v5+)
+*   Zustand (or similar state management library)
+*   UI Library (e.g., Material UI, Chakra UI)
 
 ---
 
 ## Development Workflow
 
-### Running the Application
+### Running the Application <a name="running-app"></a>
 
-1.  Clone the repository:
+1.  Clone the repository.
+2.  Install dependencies (`npm install`).
+3.  Start the development server (`npm run dev`).
 
-    ```bash
-    git clone [https://github.com/your-username/artefact-backend.git](https://github.com/your-username/artefact-backend.git)
-    cd artefact-backend
-    ```
+### Testing <a name="testing"></a>
 
-2.  Install dependencies:
-
-    ```bash
-    npm install
-    ```
-
-3.  Start the development server:
-
-    ```bash
-    npm run dev
-    ```
-
-### Testing with Postman
-
-1.  Import the Postman collection (provided separately).
-2.  Configure environment variables in Postman.
-3.  Send requests to the API endpoints.
+Due to the project's simplicity and focus on integration, unit tests were not implemented in this version. However, the architecture is designed to support testing at all levels (unit, integration, end-to-end) in future iterations.
 
 ---
 
 ## Future Enhancements
 
-*   **Database Integration:** Persist tasks in a database (e.g., PostgreSQL, MongoDB).
-*   **Authentication:** Implement user authentication and authorization.
-*   **Advanced Features:** Add features like task prioritization, due dates, and collaboration.
-*   **Improved Testing:** Expand test coverage to include integration tests and end-to-end tests.
+*   Database integration for persistent tasks.
+*   User authentication and authorization.
+*   Advanced features like task prioritization and due dates.
+*   Improved testing coverage.
 
 ---
 
 ## Conclusion
 
-The Artefact backend provides a solid foundation for a feature-rich task management application. Its modular architecture, robust validation, and use of modern technologies ensure scalability and maintainability. The project demonstrates best practices in software development and provides a valuable learning experience.
+Artefact provides a solid foundation for a task management application. Its architecture, robust validation, and modern technologies ensure scalability and maintainability. The project showcases best practices and offers a valuable learning experience.
