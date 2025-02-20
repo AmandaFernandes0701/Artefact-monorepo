@@ -1,4 +1,4 @@
-# Artefact Project - Task Management Application
+# Task Management Application - Technical Challenge for Artefact
 
 ## Table of Contents
 
@@ -26,9 +26,7 @@
 
 ## Introduction
 
-Artefact is a task management application designed to boost personal productivity. This repository contains the complete source code for both the backend API and the user-facing frontend.
-
-The project was developed as a practical exercise for a technical challenge, focusing on building a Next.js (v15) application with a task management system. The primary goal was to demonstrate the ability to integrate a frontend and backend effectively, adhering to the challenge requirements.
+This project was developed as a technical challenge for a Fullstack Developer internship position at Artefact. It aims to showcase my abilities in both backend and frontend development, demonstrating my understanding of software architecture, best practices, and modern technologies. The application is a task management system built with Next.js (v15), focusing on effective integration between the frontend and backend.
 
 **Key Features:**
 
@@ -178,4 +176,4 @@ Due to the project's simplicity and focus on integration, unit tests were not im
 
 ## Conclusion
 
-Artefact provides a solid foundation for a task management application. Its architecture, robust validation, and modern technologies ensure scalability and maintainability. The project showcases best practices and offers a valuable learning experience.
+This project demonstrates my ability to build a full-stack application with a well-defined architecture, robust validation, and modern technologies. I am confident that my skills and experience align well with the requirements of the Fullstack Developer internship at Artefact.
