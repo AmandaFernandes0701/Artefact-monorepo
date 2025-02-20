@@ -106,16 +106,18 @@ These technologies were chosen for their proven track records in building scalab
 
 The backend repository is organized to reflect its layered architecture:
 
-dist # Compiled JavaScript files (output from TypeScript)
-└── /src # Source code for the backend
-├── /application # Contains use case implementations (e.g., TarefaUseCases.ts)
-├── /config # Environment configurations and settings
-├── /domain # Domain models and business entities (e.g., Tarefa.ts)
-├── /infrastructure# Placeholder for future integrations (database, external APIs)
-├── /presentation # API routes and controllers (e.g., TarefaRouter.ts)
-├── /utils # Utility functions, error handlers, and shared logic
-├── server.ts # Entry point; sets up server and middleware
-└── errorMessages.ts # Centralized error message definitions for consistency
+📦 backend  
+ ┣ 📂 dist                       # Arquivos JavaScript compilados (output do TypeScript)
+ ┃ ┗ 📂 src                      # Código compilado do backend
+ ┣ 📂 src                        # Código-fonte do backend
+ ┃ ┣ 📂 application              # Casos de uso (ex.: TarefaUseCases.ts)
+ ┃ ┣ 📂 config                   # Configurações e variáveis de ambiente
+ ┃ ┣ 📂 domain                   # Modelos de domínio e entidades de negócio (ex.: Tarefa.ts) 
+ ┃ ┣ 📂 infrastructure           # Integrações futuras (banco de dados, APIs externas)
+ ┃ ┣ 📂 presentation             # Rotas e controladores da API (ex.: TarefaRouter.ts)
+ ┃ ┣ 📂 utils                    # Funções utilitárias e tratamento de erros 
+ ┃ ┣ 📜 server.ts                # Ponto de entrada; configura servidor e middlewares
+ ┃ ┗ 📜 errorMessages.ts         # Mensagens de erro centralizadas para consistência
 
 
 **Workflow Overview:**
