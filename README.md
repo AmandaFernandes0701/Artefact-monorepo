@@ -41,17 +41,17 @@ This project was developed as a technical challenge for a Fullstack Developer po
 The backend repository is organized to reflect its layered architecture:
 ```
 📦 backend  
- ┣ 📂 dist                       # Arquivos JavaScript compilados (output do TypeScript)
- ┃ ┗ 📂 src                      # Código compilado do backend
- ┣ 📂 src                        # Código-fonte do backend
- ┃ ┣ 📂 application              # Casos de uso (ex.: TarefaUseCases.ts)
- ┃ ┣ 📂 config                   # Configurações e variáveis de ambiente
- ┃ ┣ 📂 domain                   # Modelos de domínio e entidades de negócio (ex.: Tarefa.ts) 
- ┃ ┣ 📂 infrastructure           # Integrações futuras (banco de dados, APIs externas)
- ┃ ┣ 📂 presentation             # Rotas e controladores da API (ex.: TarefaRouter.ts)
- ┃ ┣ 📂 utils                    # Funções utilitárias e tratamento de erros 
- ┃ ┣ 📜 server.ts                # Ponto de entrada; configura servidor e middlewares
- ┃ ┗ 📜 errorMessages.ts         # Mensagens de erro centralizadas para consistência
+ ┣ 📂 dist                       # Compiled JavaScript files (TypeScript output)
+ ┃ ┗ 📂 src                      # Compiled backend code
+ ┣ 📂 src                        # Backend source code
+ ┃ ┣ 📂 application              # Use cases (e.g., TaskUseCases.ts)
+ ┃ ┣ 📂 config                   # Configurations and environment variables
+ ┃ ┣ 📂 domain                   # Domain models and business entities (e.g., Task.ts)
+ ┃ ┣ 📂 infrastructure           # Future integrations (database, external APIs)
+ ┃ ┣ 📂 presentation             # API routes and controllers (e.g., TaskRouter.ts)
+ ┃ ┣ 📂 utils                    # Utility functions and error handling
+ ┃ ┣ 📜 server.ts                # Entry point; sets up server and middleware
+ ┃ ┗ 📜 errorMessages.ts         # Centralized error messages for consistency
 ```
 The backend is architected with a strong emphasis on modularity, separation of concerns, and adherence to Clean Architecture principles. The design ensures that each layer can evolve independently while maintaining a consistent contract across the application. Key architectural patterns include:
 
