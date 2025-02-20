@@ -224,46 +224,17 @@ To set up the project locally:
 
 ## Install Dependencies:
 
-bash
-Copier
-Modifier
+ ```bash
 npm install
+```
+
 Start the Development Server:
 
-bash
-Copier
-Modifier
+```bash
 npm run dev
+```
+
 This process ensures a rapid development cycle with immediate feedback, supporting agile iterations and continuous improvement.
 
-Testing <a name="testing"></a>
-While the current iteration prioritizes integration and core functionality, the architecture has been designed to support comprehensive testing strategies:
-
-Unit Testing:
-
-Future implementations will incorporate Jest and Testing Library to validate individual functions and components.
-Integration Testing:
-
-End-to-end tests using frameworks like Cypress can simulate user interactions and verify system integrity.
-Continuous Integration:
-
-The project is structured to integrate with CI/CD pipelines, ensuring that new code commits do not break existing functionality.
-Future Enhancements
-Looking ahead, several enhancements are planned to further elevate the application:
-
-Persistent Data Storage:
-Integration with relational (e.g., PostgreSQL) or NoSQL databases for data persistence.
-User Authentication & Authorization:
-Secure the application using JWTs or OAuth protocols to support multi-user environments.
-Advanced Task Features:
-Implementation of task prioritization, deadlines, categorization, and collaborative features.
-Microservices and API Gateway:
-Transition to a microservices architecture for better scalability and maintainability in high-demand scenarios.
-Enhanced Testing & Monitoring:
-Broader testing coverage and integration with application monitoring tools (e.g., Sentry) to proactively address performance issues and errors.
-These enhancements reflect a forward-thinking approach, ensuring that the application remains robust and adaptable to evolving user needs.
-
-Conclusion
+## Conclusion
 This project is a testament to advanced software engineering practices, combining a well-defined architecture with modern technologies and comprehensive error handling. By leveraging robust design patterns, type safety, and scalable principles, the Task Management Application not only fulfills the immediate requirements but is also primed for future growth. I am confident that this solution reflects the technical depth and innovative mindset required for the Fullstack Developer role at Artefact.
-
-Embrace the challenge, innovate relentlessly, and build solutions that stand the test of time.
