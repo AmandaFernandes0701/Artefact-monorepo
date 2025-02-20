@@ -1,8 +1,10 @@
 {
     "private": true,
     "workspaces": [
-      "frontend",
-      "backend"
-    ]
-  }
-  
+        "frontend",
+        "backend"
+    ],
+    "devDependencies": {
+        "@types/express": "^5.0.0"
+    }
+}
