@@ -116,7 +116,7 @@ Robust validation and error handling mechanisms are critical for maintaining app
 
 These technologies were chosen for their proven track records in building scalable and maintainable applications, enabling rapid development without compromising on quality.
 
-### Workflow: <a name="backend-workflow></a>
+### Workflow: <a name="backend-workflow"></a>
 
 1. **Request Handling:**  
    - Incoming HTTP requests are first processed by the **presentation** layer.
