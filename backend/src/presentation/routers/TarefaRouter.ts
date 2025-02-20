@@ -9,7 +9,9 @@ export const tarefaRouter = t.router({
   criar: t.procedure
     .input(
       z.object({
-        titulo: z.string(),
+        titulo: z.string()
+        .nonempty('Por favor, informe um título.')
+        .max(50, 'O título deve ter no máximo 50 caracteres.'),
         descricao: z.string().optional(),
       })
     )
@@ -24,8 +26,11 @@ export const tarefaRouter = t.router({
   atualizar: t.procedure
     .input(
       z.object({
-        id: z.string(),
-        titulo: z.string(),
+        id: z.string()
+        .nonempty('Por favor, informe o id da tarefa.'),
+        titulo: z.string()
+        .nonempty('Por favor, informe um título.')
+        .max(50, 'O título deve ter no máximo 50 caracteres.'),
         descricao: z.string().optional(),
       })
     )
@@ -40,7 +45,8 @@ export const tarefaRouter = t.router({
   deletar: t.procedure
     .input(
       z.object({
-        id: z.string(),
+        id: z.string()
+        .nonempty('Por favor, informe o id da tarefa.'),
       })
     )
     .mutation(({ input }) => {

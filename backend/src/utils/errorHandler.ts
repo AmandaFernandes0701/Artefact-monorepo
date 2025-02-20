@@ -3,20 +3,18 @@ import { TRPCError } from '@trpc/server';
 import { ErrorMessages } from './errorMessages';
 
 export const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-  console.error(err);  // Log do erro para depuração no servidor
+  console.error(err); 
 
-  // Se for um erro do tRPC
   if (err instanceof TRPCError) {
     if (err.code === 'BAD_REQUEST' && err.message.includes('Erro de validação')) {
-      // Erro de validação, formatado de maneira amigável
+
       return res.status(400).json({
         success: false,
-        message: err.message, // Mensagem de erro formatada
+        message: err.message,
         code: err.code,
       });
     }
 
-    // Para erros do tipo TRPCError que não são de validação
     return res.status(400).json({
       success: false,
       message: err.message || 'Ocorreu um erro no processamento da requisição.',
@@ -24,7 +22,6 @@ export const errorHandler = (err: any, req: Request, res: Response, next: NextFu
     });
   }
 
-  // Caso contrário, se for um erro genérico
   switch (err.code) {
     case 'NOT_FOUND':
       return res.status(404).json({
