@@ -95,7 +95,7 @@ Business logic resides in use cases, ensuring separation of concerns.
     *   **presentation:** Manages API routes and request/response handling.
     *   **utils:** Contains utility functions and shared logic.
     *   **server.ts:** Entry point of the backend application, sets up the server and connects the different parts.
-    *   **TerrorMessages.ts:** Centralizes error messages for consistency.
+    *   **errorMessages.ts:** Centralizes error messages for consistency.
 
 The workflow is as follows:
 
