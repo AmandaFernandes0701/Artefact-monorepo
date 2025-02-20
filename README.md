@@ -46,7 +46,7 @@ The backend architecture prioritizes modularity, scalability, and maintainabilit
 *   **Domain (Entities):** Defines core data structures and business rules (`Tarefa.ts` represents a task entity).
 *   **Infrastructure:** Handles external concerns like database access, API calls, or external services (not used in this simplified version).
 *   **Presentation (Routers):** Exposes API endpoints and handles request/response cycles (`TarefaRouter.ts` manages task routes).
-*   **Utils:** Contains helper functions and shared logic (`errorHandler.ts`, `TerrorMessages.ts`).
+*   **Utils:** Contains helper functions and shared logic (`errorHandler.ts`, `errorMessages.ts`).
 
 While this project doesn't utilize a database or external services, the architecture is designed with the idea of easily extending it in the future. For example, if we needed to persist tasks in a database, we could add a `repositories` layer in the Infrastructure folder to handle data access logic.
 
