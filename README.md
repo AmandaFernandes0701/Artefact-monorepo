@@ -105,7 +105,7 @@ These technologies were chosen for their proven track records in building scalab
 ### Folder Structure & Workflow <a name="backend-folder-structure"></a>
 
 The backend repository is organized to reflect its layered architecture:
-
+```
 📦 backend  
  ┣ 📂 dist                       # Arquivos JavaScript compilados (output do TypeScript)
  ┃ ┗ 📂 src                      # Código compilado do backend
@@ -118,7 +118,7 @@ The backend repository is organized to reflect its layered architecture:
  ┃ ┣ 📂 utils                    # Funções utilitárias e tratamento de erros 
  ┃ ┣ 📜 server.ts                # Ponto de entrada; configura servidor e middlewares
  ┃ ┗ 📜 errorMessages.ts         # Mensagens de erro centralizadas para consistência
-
+```
 
 **Workflow Overview:**
 
