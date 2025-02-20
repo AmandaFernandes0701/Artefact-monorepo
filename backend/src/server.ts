@@ -17,5 +17,5 @@ app.use('/trpc', trpcExpress.createExpressMiddleware({ router: appRouter }));
 
 const port = 4000;
 app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
+  console.log(`Servidor rodando na porta ${port} 💖✨`);
 });
