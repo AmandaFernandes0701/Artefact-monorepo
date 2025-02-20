@@ -222,7 +222,7 @@ To set up the project locally:
    git clone https://github.com/your-repo/task-management-app.git
    cd task-management-app
 
-Install Dependencies:
+## Install Dependencies:
 
 bash
 Copier
