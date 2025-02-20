@@ -1,106 +1,113 @@
-# Artefact Project - Backend
+# Artefact Project - monorepo
 
 ## Table of Contents
 
-1. [Introduction](#introduction)
-2. [Overview](#overview)
-3. [Project Objectives](#project-objectives)
-4. [Backend](#backend)
-    1. [File Structure and Software Architecture](#file-structure-and-software-architecture)
-    2. [Technologies Used](#technologies-used)
-    3. [Explanation of Code Parts](#explanation-of-code-parts)
-    4. [How to Run Locally](#how-to-run-locally)
-    5. [How to Test in Postman](#how-to-test-in-postman)
-5. [Frontend](#frontend)
-6. [Cloning the Monorepo and Running Locally](#cloning-the-monorepo-and-running-locally)
+1.  [Introduction](#introduction)
+2.  [Software Architecture](#software-architecture)
+3.  [Backend (tRPC)](#backend-trpc)
+    1.  [Data Modeling](#data-modeling)
+    2.  [API Endpoints & Business Logic](#api-endpoints--business-logic)
+    3.  [Validation and Error Handling](#validation-and-error-handling)
+4.  [Technology Stack](#technology-stack)
+5.  [Frontend (Next.js)](#frontend-nextjs)
+6.  [Development Workflow](#development-workflow)
+    1.  [Running the Application](#running-the-application)
+    2.  [Testing with Postman](#testing-with-postman)
+7.  [Future Enhancements](#future-enhancements)
+8.  [Conclusion](#conclusion)
 
 ---
 
 ## Introduction
 
-The **Artefact** project is a task management application where users can create, list, and delete tasks. This repository contains the backend of the project, which serves as the API responsible for interacting with the database and providing the necessary routes to make the system functional.
+The Artefact project is a task management application designed to streamline personal productivity. This repository houses the backend component, a robust and efficient API built with tRPC, serving as the central data management hub for the application.
+
+This project was conceived as a practical exercise, focusing on building a Next.js (v15) application with a task management system at its core. The backend, leveraging tRPC, maintains the task list in memory (for simplicity, without database persistence) and exposes endpoints for the frontend to consume.
+
+**Key Features:**
+
+*   **Task Creation:** Users can add new tasks with a title (required), description (optional), and creation timestamp.
+*   **Task Listing:** Retrieves a comprehensive list of all existing tasks.
+*   **Task Updates:** Enables modification of existing task details.
+*   **Task Deletion:** Allows removal of tasks from the list.
+
+**Project Goals:**
+
+*   Develop a well-structured and maintainable backend API.
+*   Implement robust validation and error handling.
+*   Provide a seamless integration experience for the frontend.
+*   Showcase best practices in software architecture and development.
 
 ---
 
-## Overview
+## Software Architecture
 
-The goal of **Artefact Backend** is to provide an efficient RESTful API for managing tasks, implementing proper error handling, and ensuring that the system is scalable and easy to maintain. The architecture has been planned using **Clean Code**, **SOLID principles**, and good **design patterns**.
+The backend architecture emphasizes modularity, scalability, and maintainability. It follows a layered approach, separating concerns into distinct modules:
 
----
+*   **Controllers:** Handle incoming requests, orchestrate business logic execution, and return responses.
+*   **Services:** Encapsulate core business logic, ensuring code reusability and testability.
+*   **Data Models:** Define the structure of data entities (tasks), promoting consistency and type safety.
+*   **Repositories (Optional):** Abstract data access logic, enabling easy switching of data storage mechanisms.
+*   **Utilities:** House helper functions and common logic used across the application.
 
-## Project Objectives
+This architecture promotes:
 
-1. Create an API to manage tasks.
-2. Ensure data integrity and security using a relational database.
-3. Create high-performance endpoints with low maintenance costs.
-4. Implement best development practices such as **Clean Code** and **SOLID principles**.
-5. Provide documented endpoints that can be easily tested and integrated with the frontend.
-
----
-
-## Backend
-
-### File Structure and Software Architecture
-
-The architecture adopted in the backend follows a **modularized** and **layered** structure. Below is a detailed explanation of the file structure:
-
-src/
-├── controllers/     # Handles business logic and HTTP request handling
-├── middlewares/    # Middleware functions (e.g., authentication, validation)
-├── models/         # Database schema definitions (ORM)
-├── routes/         # Files defining the routes
-├── services/        # Service layer for data processing
-├── utils/          # Utility functions and helpers
-├── validation/     # Data validation using Zod
-└── index.ts        # Entry point of the application
-
-**Why this structure?**
-
-*   **Modularity:** Separating responsibilities into distinct folders makes maintenance and scalability easier.
-*   **Clarity:** The division between controllers, services, and routes helps in understanding the code flow and finding errors or functionalities quickly.
-*   **Layered Architecture:** The application follows a layered architecture where each layer has clear responsibilities, which improves code organization and flexibility.
-
-The file structure is also designed to allow easy expansion. For example, adding new features will be simple and will not complicate the existing codebase.
+*   **Loose Coupling:** Changes in one module have minimal impact on others.
+*   **High Cohesion:** Each module has a specific responsibility.
+*   **Testability:** Individual modules can be easily unit tested.
 
 ---
 
-### Technologies Used
+## Backend (tRPC)
 
-*   **Node.js:** Used as the runtime platform to execute the application. Node.js was chosen due to its efficiency and scalability.
-*   **Express.js:** A minimal framework for creating RESTful APIs. Express was selected for its simplicity and flexibility in routing.
-*   **Zod:** A data validation library. Zod was used to ensure the consistency and validation of data on the backend before being persisted in the database.
-*   **Prisma ORM:** Used to facilitate interactions with the database. Prisma simplifies SQL query execution and database schema modeling.
-*   **TypeScript:** TypeScript was chosen for type safety, autocomplete support, and long-term maintainability.
+### Data Modeling
 
-The choice of these technologies is driven by the desire for **performance**, **productivity**, and **scalability**.
+Tasks are modeled with the following attributes:
 
----
+*   `id`: A unique identifier (UUID) for each task.
+*   `title`: The task's title (required, string).
+*   `description`: Additional details about the task (optional, string).
+*   `createdAt`: Timestamp of task creation.
 
-### Explanation of Code Parts
+### API Endpoints & Business Logic
 
-#### 1. Controllers
+The tRPC API provides the following endpoints:
 
-*   The controller handles the business logic for processing HTTP requests. Each route has a corresponding controller function, such as `createTask`, `listTasks`, etc. The code within the controller calls the service layer and returns the results to the client.
+*   `createTask`: Creates a new task, validating input and returning the created task.
+*   `listTasks`: Retrieves all tasks, potentially with pagination or filtering in the future.
+*   `updateTask`: Updates an existing task, ensuring the task exists and input is valid.
+*   `deleteTask`: Deletes a task, verifying its existence before removal.
 
-#### 2. Services
+Business logic is implemented within services, ensuring clear separation of concerns.
 
-*   Services are responsible for business logic. When a controller needs to perform complex operations (e.g., data manipulation or database interactions), it delegates that responsibility to the services.
+### Validation and Error Handling
 
-#### 3. Validation
-
-*   Validation is done using the Zod library, which ensures that incoming request data is correct before the backend processes it. If any required data is missing or invalid, Zod will generate a clear error message.
-
-#### 4. Routes
-
-*   Routes define the API endpoints. Here, all HTTP methods (GET, POST, DELETE) and their corresponding URLs are mapped to controller functions.
-
-#### 5. Middlewares
-
-*   Middlewares are used for intermediate functions, such as authentication or error handling, ensuring that requests are processed correctly before they reach the controllers.
+*   **Input Validation:** Zod is used to validate all incoming data, ensuring type safety and preventing invalid data from entering the system.
+*   **Error Handling:** Custom error classes are used to represent specific error scenarios, providing informative messages to the frontend.
+*   **Centralized Error Handling:** Middleware captures errors and transforms them into user-friendly responses.
 
 ---
 
-### How to Run Locally
+## Technology Stack
+
+*   **Node.js (v18+):** The runtime environment for the backend.
+*   **Express.js (v4+):** A web framework for building the API.
+*   **tRPC (v10+):** A library for creating type-safe APIs.
+*   **Zod (v3+):** A schema validation library.
+*   **TypeScript (v5+):** A typed superset of JavaScript.
+*   **Jest (v29+):** A testing framework for unit and integration tests.
+
+---
+
+## Frontend (Next.js)
+
+(Details about the frontend implementation, including technologies used, architecture, and key features.)
+
+---
+
+## Development Workflow
+
+### Running the Application
 
 1.  Clone the repository:
 
@@ -109,82 +116,35 @@ The choice of these technologies is driven by the desire for **performance**, **
     cd artefact-backend
     ```
 
-2.  Install the dependencies:
+2.  Install dependencies:
 
     ```bash
     npm install
     ```
 
-3.  Configure the environment variables (create a `.env` file with the necessary variables):
-
-    ```
-    DATABASE_URL=your_database_url
-    JWT_SECRET=your_jwt_secret
-    ```
-
-4.  Start the server:
+3.  Start the development server:
 
     ```bash
     npm run dev
     ```
 
-The API will be running at `http://localhost:3000`.
+### Testing with Postman
+
+1.  Import the Postman collection (provided separately).
+2.  Configure environment variables in Postman.
+3.  Send requests to the API endpoints.
 
 ---
 
-### How to Test in Postman
+## Future Enhancements
 
-To test the backend in Postman, follow these steps:
-
-1.  Open Postman and create a new Collection.
-2.  To import the Postman routes, click **Import**, choose the export file (provided in another file or folder), and import it.
-3.  Configure the environment in Postman:
-    *   Add the base URL of the API as a variable in the environment (e.g., `{{baseUrl}}`).
-    *   Add the authentication token as a variable (`{{authToken}}`).
-4.  Test the endpoints using the imported routes.
-
-**Token Automation:**
-
-The URL and authentication token variables have already been set up to simplify the testing process.
+*   **Database Integration:** Persist tasks in a database (e.g., PostgreSQL, MongoDB).
+*   **Authentication:** Implement user authentication and authorization.
+*   **Advanced Features:** Add features like task prioritization, due dates, and collaboration.
+*   **Improved Testing:** Expand test coverage to include integration tests and end-to-end tests.
 
 ---
 
-## Frontend
+## Conclusion
 
-(Section to be filled in with frontend details)
-
----
-
-## Cloning the Monorepo and Running Locally
-
-1.  Clone the repository:
-
-    ```bash
-    git clone [https://github.com/your-username/artefact-monorepo.git](https://github.com/your-username/artefact-monorepo.git)
-    ```
-
-2.  Access the frontend and backend directories:
-
-    ```bash
-    cd artefact-monorepo
-    ```
-
-3.  Run the servers for both frontend and backend:
-
-    **Backend:**
-
-    ```bash
-    cd backend
-    npm run dev
-    ```
-
-    **Frontend:**
-
-    ```bash
-    cd frontend
-    npm run dev
-    ```
-
-Now, the frontend will be running at `http://localhost:3000`, and the backend will be available at `http://localhost:4000`.
-
-Feel free to contribute improvements or adjust it according to your needs!
+The Artefact backend provides a solid foundation for a feature-rich task management application. Its modular architecture, robust validation, and use of modern technologies ensure scalability and maintainability. The project demonstrates best practices in software development and provides a valuable learning experience.
