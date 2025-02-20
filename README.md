@@ -16,9 +16,7 @@
     3. [State Management](#frontend-state)
     4. [User Interface & Experience](#frontend-ui)
     5. [Technology Stack](#frontend-technology)
-4. [Development Workflow](#development-workflow)
-    1. [Running the Application](#running-app)
-    2. [Testing](#testing)
+4. [Running the Application](#running-app)
 5. [Future Enhancements](#future-enhancements)
 6. [Conclusion](#conclusion)
 
@@ -211,9 +209,7 @@ This carefully chosen stack supports a high-performance, scalable, and maintaina
 
 ---
 
-## Development Workflow
-
-### Running the Application <a name="running-app"></a>
+## Running the Application <a name="running-app"></a>
 
 To set up the project locally:
 
