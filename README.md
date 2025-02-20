@@ -2,37 +2,38 @@
 
 ## Table of Contents
 
-1.  [Introduction](#introduction)
-2.  [Backend](#backend)
-    1.  [Software Architecture](#backend-architecture)
-    2.  [Data Modeling](#backend-data-modeling)
-    3.  [API Endpoints & Business Logic](#backend-api-endpoints)
-    4.  [Validation and Error Handling](#backend-validation)
-    5.  [Technology Stack](#backend-technology)
-    6.  [Folder Structure & Workflow](#backend-folder-structure)
-3.  [Frontend](#frontend)
-    1.  [Software Architecture](#frontend-architecture)
-    2.  [Component Structure](#frontend-components)
-    3.  [State Management](#frontend-state)
-    4.  [User Interface & Experience](#frontend-ui)
-    5.  [Technology Stack](#frontend-technology)
-4.  [Development Workflow](#development-workflow)
-    1.  [Running the Application](#running-app)
-    2.  [Testing](#testing)
-5.  [Future Enhancements](#future-enhancements)
-6.  [Conclusion](#conclusion)
+1. [Introduction](#introduction)
+2. [Backend](#backend)
+    1. [Software Architecture](#backend-architecture)
+    2. [Data Modeling](#backend-data-modeling)
+    3. [API Endpoints & Business Logic](#backend-api-endpoints)
+    4. [Validation and Error Handling](#backend-validation)
+    5. [Technology Stack](#backend-technology)
+    6. [Folder Structure & Workflow](#backend-folder-structure)
+3. [Frontend](#frontend)
+    1. [Software Architecture](#frontend-architecture)
+    2. [Component Structure](#frontend-components)
+    3. [State Management](#frontend-state)
+    4. [User Interface & Experience](#frontend-ui)
+    5. [Technology Stack](#frontend-technology)
+4. [Development Workflow](#development-workflow)
+    1. [Running the Application](#running-app)
+    2. [Testing](#testing)
+5. [Future Enhancements](#future-enhancements)
+6. [Conclusion](#conclusion)
 
 ---
 
 ## Introduction
 
-This project was developed as a technical challenge for a Fullstack Developer internship position at Artefact. It aims to showcase my abilities in both backend and frontend development, demonstrating my understanding of software architecture, best practices, and modern technologies. The application is a task management system built with Next.js (v15), focusing on effective integration between the frontend and backend.
+This project was developed as a technical challenge for a Fullstack Developer position at Artefact. It is a comprehensive task management system designed to showcase deep expertise in both backend and frontend development, adhering to modern best practices, scalable design, and robust error handling. With an emphasis on clean code, modular architecture, and technical excellence, this application not only meets the immediate requirements but is also engineered to evolve with future feature enhancements.
 
 **Key Features:**
 
-*   Create, list, update, and delete tasks.
-*   Intuitive user interface for task management.
-*   Robust validation and error handling.
+- **Complete CRUD Functionality:** Create, list, update, and delete tasks with state-of-the-art validation.
+- **Seamless Integration:** Efficient synchronization between frontend and backend leveraging tRPC for type-safe communications.
+- **Robust Error Handling:** Proactive error management that anticipates failure modes and provides clear, actionable feedback.
+- **Scalability and Extensibility:** Designed with a layered architecture to facilitate effortless integration of additional features such as authentication, database persistence, and microservices.
 
 ---
 
@@ -40,69 +41,93 @@ This project was developed as a technical challenge for a Fullstack Developer in
 
 ### Software Architecture <a name="backend-architecture"></a>
 
-The backend architecture prioritizes modularity, scalability, and maintainability, even though the project scope is intentionally simple. It follows a layered approach inspired by Clean Architecture principles:
+The backend is architected with a strong emphasis on modularity, separation of concerns, and adherence to Clean Architecture principles. The design ensures that each layer can evolve independently while maintaining a consistent contract across the application. Key architectural patterns include:
 
-*   **Application (Use Cases):** Contains specific business logic for each operation (e.g., `TarefaUseCases.ts` for task-related actions).
-*   **Domain (Entities):** Defines core data structures and business rules (`Tarefa.ts` represents a task entity).
-*   **Infrastructure:** Handles external concerns like database access, API calls, or external services (not used in this simplified version).
-*   **Presentation (Routers):** Exposes API endpoints and handles request/response cycles (`TarefaRouter.ts` manages task routes).
-*   **Utils:** Contains helper functions and shared logic (`errorHandler.ts`, `errorMessages.ts`).
+- **Layered Approach:**
+    - **Application (Use Cases):** Implements specific business logic (e.g., `TarefaUseCases.ts`) following SOLID principles and ensuring that business rules remain isolated from infrastructural concerns.
+    - **Domain (Entities):** Defines core entities (such as `Tarefa.ts`) encapsulating business rules and invariants. This layer is agnostic of external dependencies.
+    - **Infrastructure:** Although not fully utilized in the current scope, this layer is designed to manage external integrations like databases, external APIs, or messaging systems, making future enhancements seamless.
+    - **Presentation (Routers):** Exposes HTTP endpoints using Express.js and tRPC, translating user requests into application commands.
+    - **Utilities:** Contains shared logic (e.g., custom error classes, logging, helper functions) that promotes DRY principles across the application.
 
-While this project doesn't utilize a database or external services, the architecture is designed with the idea of easily extending it in the future. For example, if we needed to persist tasks in a database, we could add a `repositories` layer in the Infrastructure folder to handle data access logic.
+This architectural strategy not only increases code maintainability and testability but also aligns with industry-standard practices for enterprise-grade applications.
 
 ### Data Modeling <a name="backend-data-modeling"></a>
 
-Tasks have the following attributes:
+Tasks are modeled as domain entities with a focus on immutability and consistency. The data structure includes:
 
-*   `id`: Unique identifier (UUID).
-*   `title`: Task title (required, string).
-*   `description`: Task details (optional, string).
-*   `createdAt`: Creation timestamp.
+- **id:** A Universally Unique Identifier (UUID) that ensures each task is uniquely identifiable.
+- **title:** A required string representing the task's title.
+- **description:** An optional string providing further details about the task.
+- **createdAt:** A timestamp marking the creation time of the task, useful for auditing and chronological sorting.
+
+This model is designed to be easily extensible; future iterations could incorporate additional attributes such as task status, priority levels, due dates, and relational mappings for collaborative environments.
 
 ### API Endpoints & Business Logic <a name="backend-api-endpoints"></a>
 
-The tRPC API offers:
+The backend API, built on tRPC, provides a type-safe and efficient interface for client-server communication. The main endpoints include:
 
-*   `createTask`: Creates a task, validates input.
-*   `listTasks`: Retrieves all tasks.
-*   `updateTask`: Updates a task, ensures existence and valid input.
-*   `deleteTask`: Deletes a task, verifies existence.
+- **`createTask`:**
+    - **Function:** Creates a new task.
+    - **Validation:** Ensures the input meets stringent criteria using Zod schemas.
+    - **Business Logic:** Applies domain rules before persisting the new task.
+- **`listTasks`:**
+    - **Function:** Retrieves all tasks.
+    - **Optimization:** Can be extended to support pagination, filtering, and sorting for enhanced performance.
+- **`updateTask`:**
+    - **Function:** Modifies an existing task.
+    - **Validation:** Checks for the existence of the task and validates input changes.
+- **`deleteTask`:**
+    - **Function:** Deletes a specified task.
+    - **Verification:** Confirms the task exists and that the deletion meets business criteria.
 
-Business logic resides in use cases, ensuring separation of concerns.
+Centralizing the business logic within use cases decouples application rules from transport mechanisms, ensuring consistency and facilitating unit testing.
 
 ### Validation and Error Handling <a name="backend-validation"></a>
 
-*   **Input Validation:** Zod validates incoming data for type safety.
-*   **Error Handling:** Custom error classes represent scenarios, providing messages.
-*   **Centralized Handling:** Middleware captures errors, creates user-friendly responses.
+Robust validation and error handling mechanisms are critical for maintaining application integrity:
+
+- **Input Validation:**
+    - Utilizes Zod to enforce runtime type-checking and data integrity. This ensures that only valid data is processed by the business logic.
+- **Custom Error Classes:**
+    - Implements specific error types to clearly differentiate between client-side and server-side issues, aiding in debugging and user feedback.
+- **Middleware for Centralized Error Handling:**
+    - A dedicated error-handling middleware intercepts exceptions, logs them appropriately, and returns standardized error responses. This mechanism is extensible and can integrate with external monitoring tools.
 
 ### Technology Stack <a name="backend-technology"></a>
 
-*   Node.js (v18+)
-*   Express.js (v4+)
-*   tRPC (v10+)
-*   Zod (v3+)
-*   TypeScript (v5+)
+- **Node.js (v18+):** Provides a robust runtime environment with support for modern JavaScript features.
+- **Express.js (v4+):** A lightweight framework that simplifies routing and middleware integration.
+- **tRPC (v10+):** Ensures end-to-end type safety between the client and server, reducing runtime errors.
+- **Zod (v3+):** Facilitates schema-based validation with a focus on developer productivity and code clarity.
+- **TypeScript (v5+):** Enhances code reliability and maintainability through static type checking.
+
+These technologies were chosen for their proven track records in building scalable and maintainable applications, enabling rapid development without compromising on quality.
 
 ### Folder Structure & Workflow <a name="backend-folder-structure"></a>
 
-*   **dist:** Contains the compiled JavaScript files (output of the TypeScript compiler).
-*   **src:** Contains the source code of the backend application.
-    *   **application:** Holds use cases, each representing a specific action a user can take.
-    *   **config:** Stores environment variables and configuration settings.
-    *   **domain:** Defines the entities and value objects of the domain.
-    *   **infrastructure:** Handles external concerns (not used in this simplified version).
-    *   **presentation:** Manages API routes and request/response handling.
-    *   **utils:** Contains utility functions and shared logic.
-    *   **server.ts:** Entry point of the backend application, sets up the server and connects the different parts.
-    *   **errorMessages.ts:** Centralizes error messages for consistency.
+The backend repository is organized to reflect its layered architecture:
 
-The workflow is as follows:
+/dist # Compiled JavaScript files (output from TypeScript)
+└── /src # Source code for the backend
+├── /application # Contains use case implementations (e.g., TarefaUseCases.ts)
+├── /config # Environment configurations and settings
+├── /domain # Domain models and business entities (e.g., Tarefa.ts)
+├── /infrastructure# Placeholder for future integrations (database, external APIs)
+├── /presentation # API routes and controllers (e.g., TarefaRouter.ts)
+├── /utils # Utility functions, error handlers, and shared logic
+├── server.ts # Entry point; sets up server and middleware
+└── errorMessages.ts # Centralized error message definitions for consistency
 
-1.  Requests come in through the **presentation** layer (routers).
-2.  Routers call the appropriate **use cases** in the **application** layer.
-3.  Use cases interact with **domain** entities and potentially **infrastructure** (if it existed) to perform actions.
-4.  Use cases return results to routers, which format the response and send it back to the client.
+**Workflow Overview:**
+
+1. **Request Handling:** Incoming HTTP requests are first processed by the **presentation** layer.
+2. **Business Logic Execution:** Routers delegate operations to **use cases** in the **application** layer.
+3. **Domain Processing:** Use cases interact with **domain** entities, ensuring business rules are enforced.
+4. **Response Formation:** Processed results are formatted and returned to the client via the routers.
+5. **Error Management:** Any exceptions trigger centralized error handling, ensuring consistent client feedback.
+
+This structure promotes clarity, ease of navigation, and scalability, allowing for smooth incorporation of new features and modules.
 
 ---
 
@@ -110,70 +135,23 @@ The workflow is as follows:
 
 ### Software Architecture <a name="frontend-architecture"></a>
 
-The frontend architecture is component-based, utilizing Next.js features:
+The frontend is built with Next.js, leveraging its powerful hybrid rendering capabilities to deliver a seamless user experience. The architecture emphasizes:
 
-*   **Pages:** Represent application routes, handle user interactions.
-*   **Components:** Reusable UI elements, promoting modularity.
-*   **Contexts:** Manage global state, provide data to components.
-*   **Hooks:** Access state and side effects within components.
+- **Page-Based Routing:** Utilizes Next.js pages for server-side rendering (SSR) and static site generation (SSG), enhancing performance and SEO.
+- **Component-Driven Design:** Follows the principles of atomic design, ensuring that UI components are reusable, maintainable, and testable.
+- **Context & Hooks:** Implements React Context API and custom hooks for state management and side-effect handling, ensuring efficient data flow across components.
 
-This architecture fosters organization, maintainability, and reusability.
+This approach allows for a clear separation of concerns, optimized performance, and a highly responsive user interface.
 
 ### Component Structure <a name="frontend-components"></a>
 
-Key components include:
+Key UI components are designed for modularity and reusability:
 
-*   `TaskList`: Displays a list of tasks.
-*   `TaskForm`: Allows creating/updating tasks.
-*   `Header`: Application header with navigation.
-*   `Layout`: Provides consistent layout across pages.
+- **`TaskList`:** Displays tasks in a clear, ordered manner. Supports future enhancements such as sorting, filtering, and real-time updates.
+- **`TaskForm`:** Facilitates both task creation and updates. Integrates inline validation and dynamic feedback to enhance usability.
+- **`Header`:** Provides a consistent navigation experience and branding across the application.
+- **`Layout`:** Ensures uniform styling and structure across all pages, contributing to a cohesive user experience.
 
 ### State Management <a name="frontend-state"></a>
 
-State is managed using React Context and hooks, providing a centralized and efficient way to handle data flow.
-
-### User Interface & Experience <a name="frontend-ui"></a>
-
-The UI focuses on simplicity and usability:
-
-*   Clear task representation.
-*   Intuitive form for task creation/updates.
-*   Feedback messages for actions.
-*   Responsive design for various devices.
-
-### Technology Stack <a name="frontend-technology"></a>
-
-*   Next.js (v15+)
-*   React (v18+)
-*   TypeScript (v5+)
-*   Zustand (or similar state management library)
-*   UI Library (e.g., Material UI, Chakra UI)
-
----
-
-## Development Workflow
-
-### Running the Application <a name="running-app"></a>
-
-1.  Clone the repository.
-2.  Install dependencies (`npm install`).
-3.  Start the development server (`npm run dev`).
-
-### Testing <a name="testing"></a>
-
-Due to the project's simplicity and focus on integration, unit tests were not implemented in this version. However, the architecture is designed to support testing at all levels (unit, integration, end-to-end) in future iterations.
-
----
-
-## Future Enhancements
-
-*   Database integration for persistent tasks.
-*   User authentication and authorization.
-*   Advanced features like task prioritization and due dates.
-*   Improved testing coverage.
-
----
-
-## Conclusion
-
-This project demonstrates my ability to build a full-stack application with a well-defined architecture, robust validation, and modern technologies. I am confident that my skills and experience align well with the requirements of the Fullstack Developer internship at Artefact.
+State is managed using a combination of React Context and hooks, with
