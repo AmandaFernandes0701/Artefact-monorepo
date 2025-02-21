@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { listarTarefas } from '../services/tarefaService';
+import { criarTarefa, listarTarefas, atualizarTarefa, deletarTarefa } from '../services/tarefaService';
 import { Tarefa } from '../models/Tarefa';
 
 export function useTarefas() {
@@ -21,5 +21,43 @@ export function useTarefas() {
     fetchData();
   }, []);
 
-  return { tarefas, loading, error };
+  async function adicionarTarefa(novaTarefa: { titulo: string; descricao?: string }) {
+    setLoading(true);
+    try {
+      const tarefaCriada = await criarTarefa(novaTarefa);
+      setTarefas((prevTarefas) => [...prevTarefas, tarefaCriada]);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function editarTarefa(id: string, tarefaAtualizada: { titulo: string; descricao?: string }) {
+    setLoading(true);
+    try {
+      const tarefaEditada = await atualizarTarefa(id, tarefaAtualizada);
+      setTarefas((prevTarefas) =>
+        prevTarefas.map((tarefa) => (tarefa.id === id ? { ...tarefa, ...tarefaEditada } : tarefa))
+      );
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function removerTarefa(id: string) {
+    setLoading(true);
+    try {
+      await deletarTarefa(id);
+      setTarefas((prevTarefas) => prevTarefas.filter((tarefa) => tarefa.id !== id));
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { tarefas, loading, error, adicionarTarefa, editarTarefa, removerTarefa };
 }
