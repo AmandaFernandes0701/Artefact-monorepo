@@ -48,6 +48,11 @@ export const TaskListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+  min-width: 30%;
+
+  @media (max-width: 1200px) {
+    min-width: 80%;
+  }
 `;
 
 export const TaskItem = styled.div`
