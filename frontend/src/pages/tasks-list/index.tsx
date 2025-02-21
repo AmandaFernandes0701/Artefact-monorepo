@@ -30,6 +30,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useTarefas } from '../../hooks/useTarefas';
 import { Tarefa } from '../../models/Tarefa';
+import { toast } from 'react-toastify'; 
 
 const customStyles = {
   overlay: {
@@ -111,6 +112,11 @@ const TasksListPage: React.FC = () => {
       setTarefasLocal(prev =>
         prev.map(t => (t.id === updatedTarefa.id ? updatedTarefa : t))
       );
+      toast.success("Tarefa atualizada com sucesso!", {
+        style: {
+          background: theme.background,
+        },
+      });
     } else {
       console.log('modalTitulo:', modalTitulo);
       console.log('modalDescricao:', modalDescricao);
@@ -118,8 +124,12 @@ const TasksListPage: React.FC = () => {
         titulo: modalTitulo,
         descricao: modalDescricao,
       });
-      console.log('novaTarefa:', novaTarefa);
       setTarefasLocal(prev => [...prev, novaTarefa]);
+      toast.success("Tarefa criada com sucesso!", {
+        style: {
+          background: theme.background,
+        },
+      });
     }
     closeTaskModal();
   };
@@ -137,9 +147,11 @@ const TasksListPage: React.FC = () => {
   const confirmDelete = async () => {
     if (tarefaADeletar) {
       await removerTarefa(tarefaADeletar.id);
-      setTarefasLocal(prev =>
-        prev.filter(t => t.id !== tarefaADeletar.id)
-      );
+      toast.success("Tarefa deletada com sucesso!", {
+        style: {
+          background: theme.background,
+        },
+      });
     }
     closeDeleteModal();
   };
@@ -166,8 +178,8 @@ const TasksListPage: React.FC = () => {
         <TaskListContainer>
           {loading && <p>Carregando tarefas...</p>}
           {error && <p>Erro ao carregar tarefas.</p>}
-          {Array.isArray(tarefasLocal) && tarefasLocal.length > 0 ? (
-            tarefasLocal.map(tarefa =>
+          {Array.isArray(tarefas) && tarefas.length > 0 ? (
+            tarefas.map(tarefa =>
               tarefa && tarefa.titulo ? (
                 <TaskItem key={tarefa.id}>
                   <div>
