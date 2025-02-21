@@ -91,6 +91,7 @@ const TasksListPage: React.FC = () => {
   const closeTaskModal = () => {
     setIsTaskModalOpen(false);
     setTarefaAtual(null);
+    setFormErrors({});
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
