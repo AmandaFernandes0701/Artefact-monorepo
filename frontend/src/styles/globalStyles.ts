@@ -4,7 +4,6 @@ const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: 'Century Gothic', sans-serif;
   }
 
@@ -14,9 +13,8 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     font-size: 16px;
     width: 100%;
+    background-color: magenta;
     height: 100%;
-    padding: 0;
-    margin: 0;
     line-height: 1.5;
     color: ${(props) => props.theme.text};
   }

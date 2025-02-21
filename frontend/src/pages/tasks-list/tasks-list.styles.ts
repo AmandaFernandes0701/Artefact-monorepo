@@ -3,9 +3,15 @@ import { DefaultTheme as Theme, styled } from 'styled-components';
 type ThemeProps = { theme: Theme };
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
   background: ${({ theme }: { theme: Theme }) => theme.background};
   color: ${({ theme }: { theme: Theme }) => theme.text};
   min-height: 100vh;
+  width: 100vw;
   padding: 20px;
   transition: background 0.3s ease, color 0.3s ease;
 `;
@@ -14,7 +20,7 @@ export const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 
   h1 {
     margin: 0;
@@ -24,8 +30,8 @@ export const Header = styled.header`
 `;
 
 export const ToggleButton = styled.button`
-  background: ${({ theme }: { theme: Theme }) => theme.primary};
-  color: #ffffff;
+  background: transparent;
+  color: ${({ theme }: { theme: Theme }) => theme.primary};
   border: none;
   border-radius: 20px;
   padding: 8px 16px;
@@ -34,10 +40,9 @@ export const ToggleButton = styled.button`
   transition: background 0.3s ease;
   
   &:hover {
-    background: ${({ theme }: { theme: Theme }) => theme.primary};
+    background: transparent;
   }
 `;
-
 export const TaskListContainer = styled.div`
   display: flex;
   flex-direction: column;

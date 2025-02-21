@@ -40,56 +40,21 @@ const lightTheme = {
 const darkTheme = {
   background: '#121212',
   text: '#f5f5f5',
-  primary: '#4169E1', // Azul royal
+  primary: '#4169E1',
   secondary: '#1e1e1e',
   border: '#333333',
 };
 
-// Dados de exemplo para as tarefas
-const tasks: Task[] = [
-  {
-    id: 1,
+const tasks: Task[] = Array.from({ length: 50 }, (_, index) => ({
+    id: index + 1,
     title: 'Comprar mantimentos',
     description: 'Leite, pão, ovos e frutas frescas.',
     date: '2025-03-15',
-  },
-  {
-    id: 2,
-    title: 'Reunião de Projeto',
-    description: 'Discutir o design inovador do novo produto.',
-    date: '2025-03-16',
-  },
-  {
-    id: 3,
-    title: 'Sessão de Exercícios',
-    description: 'Treino na academia para manter a energia.',
-    date: '2025-03-17',
-  },
-  {
-    id: 1,
-    title: 'Comprar mantimentos',
-    description: 'Leite, pão, ovos e frutas frescas.',
-    date: '2025-03-15',
-  },
-  {
-    id: 2,
-    title: 'Reunião de Projeto',
-    description: 'Discutir o design inovador do novo produto.',
-    date: '2025-03-16',
-  },
-  {
-    id: 3,
-    title: 'Sessão de Exercícios',
-    description: 'Treino na academia para manter a energia.',
-    date: '2025-03-17',
-  },
-  
-];
+  }));
 
 const TasksListPage: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Alterna o tema
   const toggleTheme = () => setIsDarkMode(prev => !prev);
 
   return (
