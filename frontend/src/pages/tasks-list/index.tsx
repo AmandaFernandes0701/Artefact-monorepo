@@ -56,7 +56,6 @@ const TasksListPage: React.FC = () => {
   const [tarefaAtual, setTarefaAtual] = useState<Tarefa | null>(null);
   const [modalTitulo, setModalTitulo] = useState('');
   const [modalDescricao, setModalDescricao] = useState('');
-  const [tarefasLocal, setTarefasLocal] = useState<Tarefa[]>([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [tarefaADeletar, setTarefaADeletar] = useState<Tarefa | null>(null);
   const {
@@ -67,14 +66,6 @@ const TasksListPage: React.FC = () => {
     editarTarefa,
     removerTarefa,
   } = useTarefas();
-
-  useEffect(() => {
-    if (!loading && !error && Array.isArray(tarefas)) {
-      setTarefasLocal(tarefas);
-    } else {
-      setTarefasLocal([]);
-    }
-  }, [tarefas, loading, error]);
 
   useEffect(() => {
     ReactModal.setAppElement(document.body);
@@ -109,9 +100,6 @@ const TasksListPage: React.FC = () => {
         descricao: modalDescricao,
       };
       await editarTarefa(tarefaAtual.id, updatedTarefa);
-      setTarefasLocal(prev =>
-        prev.map(t => (t.id === updatedTarefa.id ? updatedTarefa : t))
-      );
       toast.success("Tarefa atualizada com sucesso!", {
         style: {
           background: theme.background,
@@ -124,7 +112,6 @@ const TasksListPage: React.FC = () => {
         titulo: modalTitulo,
         descricao: modalDescricao,
       });
-      setTarefasLocal(prev => [...prev, novaTarefa]);
       toast.success("Tarefa criada com sucesso!", {
         style: {
           background: theme.background,

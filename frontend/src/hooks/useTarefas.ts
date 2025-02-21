@@ -11,7 +11,7 @@ export function useTarefas() {
     async function fetchData() {
       try {
         const data = await listarTarefas();
-        setTarefas(Array.isArray(data) ? data : []);
+        setTarefas(Array.isArray(data.tarefas) ? data.tarefas : []);
       } catch (err) {
         setError(err);
       } finally {
