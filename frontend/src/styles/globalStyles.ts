@@ -13,7 +13,6 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     font-size: 16px;
     width: 100%;
-    background-color: magenta;
     height: 100%;
     line-height: 1.5;
     color: ${(props) => props.theme.text};
