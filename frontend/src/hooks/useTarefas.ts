@@ -11,7 +11,7 @@ export function useTarefas() {
     async function fetchData() {
       try {
         const data = await listarTarefas();
-        setTarefas(data);
+        setTarefas(Array.isArray(data) ? data : []);
       } catch (err) {
         setError(err);
       } finally {
@@ -21,39 +21,45 @@ export function useTarefas() {
     fetchData();
   }, []);
 
-  async function adicionarTarefa(novaTarefa: { titulo: string; descricao?: string }) {
+  async function adicionarTarefa(novaTarefa: { titulo: string; descricao?: string }): Promise<Tarefa> {
     setLoading(true);
     try {
-      const tarefaCriada = await criarTarefa(novaTarefa);
-      setTarefas((prevTarefas) => [...prevTarefas, tarefaCriada]);
+      const response = await criarTarefa(novaTarefa);
+      const tarefaCriada: Tarefa = response.tarefa;
+      setTarefas(prevTarefas => [...prevTarefas, tarefaCriada]);
+      return tarefaCriada;
     } catch (err) {
       setError(err);
+      throw err;
     } finally {
       setLoading(false);
     }
   }
 
-  async function editarTarefa(id: string, tarefaAtualizada: { titulo: string; descricao?: string }) {
+  async function editarTarefa(id: string, tarefaAtualizada: { titulo: string; descricao?: string }): Promise<void> {
     setLoading(true);
     try {
-      const tarefaEditada = await atualizarTarefa(id, tarefaAtualizada);
-      setTarefas((prevTarefas) =>
-        prevTarefas.map((tarefa) => (tarefa.id === id ? { ...tarefa, ...tarefaEditada } : tarefa))
+      const response = await atualizarTarefa(id, tarefaAtualizada);
+      const tarefaEditada: Tarefa = response.tarefa;
+      setTarefas(prevTarefas =>
+        prevTarefas.map(tarefa => (tarefa.id === id ? tarefaEditada : tarefa))
       );
     } catch (err) {
       setError(err);
+      throw err;
     } finally {
       setLoading(false);
     }
   }
 
-  async function removerTarefa(id: string) {
+  async function removerTarefa(id: string): Promise<void> {
     setLoading(true);
     try {
       await deletarTarefa(id);
-      setTarefas((prevTarefas) => prevTarefas.filter((tarefa) => tarefa.id !== id));
+      setTarefas(prevTarefas => prevTarefas.filter(tarefa => tarefa.id !== id));
     } catch (err) {
       setError(err);
+      throw err;
     } finally {
       setLoading(false);
     }
