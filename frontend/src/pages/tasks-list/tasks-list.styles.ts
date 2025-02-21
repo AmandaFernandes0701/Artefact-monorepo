@@ -61,13 +61,32 @@ export const TaskListContainer = styled.div`
   flex-direction: column;
   gap: 15px;
   max-height: 650px;
+  padding-top: 5px;
   overflow-y: auto;
   min-width: 30%;
 
   @media (max-width: 1200px) {
     min-width: 80%;
   }
+
+  scrollbar-width: thin;
+  scrollbar-color: ${({ theme }) => theme.scrollThumbColor} ${({ theme }) => theme.scrollTrackBackground};
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.scrollTrackBackground};
+    margin-right: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.scrollThumbColor}; 
+    border-radius: 2px;
+  }
 `;
+
 
 export const TaskItem = styled.div`
   display: flex;
