@@ -23,12 +23,13 @@ import {
 } from './tasks-list.styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {darkTheme,lightTheme} from '../../styles/theme';
 import AddIcon from '@mui/icons-material/Add';
 import { IconButton as MuiIconButton } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import { LineWeight } from '@mui/icons-material';
 
-// Define a interface para uma tarefa
 interface Task {
   id: number;
   title: string;
@@ -36,31 +37,13 @@ interface Task {
   date: string;
 }
 
-// Temas: claro e escuro
-const lightTheme = {
-  background: '#ffffff',
-  text: '#333333',
-  primary: '#00BFFF', // Azul piscina
-  secondary: '#f7f7f7',
-  border: '#e0e0e0',
-};
-
-const darkTheme = {
-  background: '#121212',
-  text: '#f5f5f5',
-  primary: '#4169E1',
-  secondary: '#1e1e1e',
-  border: '#333333',
-};
-
-const tasks: Task[] = Array.from({ length: 2 }, (_, index) => ({
+const initialTasks: Task[] = Array.from({ length: 2 }, (_, index) => ({
   id: index + 1,
   title: 'Comprar mantimentos',
   description: 'Leite, pão, ovos e frutas frescas.',
   date: '2025-03-15',
 }));
 
-// Estilização customizada para o react-modal: Centraliza o modal e define minWidth de 600px
 const customStyles = {
   overlay: {
     backgroundColor: 'rgba(0,0,0,0.5)',
@@ -78,21 +61,25 @@ const customStyles = {
     padding: 0,
   },
 };
+
 const TasksListPage: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [currentTask, setCurrentTask] = useState<Task | null>(null);
   const [modalTitle, setModalTitle] = useState('');
   const [modalDesc, setModalDesc] = useState('');
+  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
 
   useEffect(() => {
-    // Define o appElement para acessibilidade, utiliza document.body se o seletor #root não existir
     ReactModal.setAppElement(document.body);
   }, []);
 
   const toggleTheme = () => setIsDarkMode(prev => !prev);
 
-  const openModal = (task?: Task) => {
+  const openTaskModal = (task?: Task) => {
     if (task) {
       setCurrentTask(task);
       setModalTitle(task.title);
@@ -102,28 +89,50 @@ const TasksListPage: React.FC = () => {
       setModalTitle('');
       setModalDesc('');
     }
-    setIsModalOpen(true);
+    setIsTaskModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closeTaskModal = () => {
+    setIsTaskModalOpen(false);
     setCurrentTask(null);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Aqui você pode tratar os dados do formulário e atualizar a lista de tarefas
-    console.log('Título:', modalTitle);
-    console.log('Descrição:', modalDesc);
-    closeModal();
+    if (currentTask) {
+      // console.log('Salvando alterações da tarefa:', modalTitle, modalDesc);
+    } else {
+      // console.log('Adicionando nova tarefa:', modalTitle, modalDesc);
+    }
+    closeTaskModal();
   };
 
+  const openDeleteModal = (task: Task) => {
+    setTaskToDelete(task);
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setTaskToDelete(null);
+  };
+
+  const confirmDelete = () => {
+    if (taskToDelete) {
+      // console.log('Excluindo tarefa:', taskToDelete);
+      setTasks(prevTasks => prevTasks.filter(task => task.id !== taskToDelete.id));
+    }
+    closeDeleteModal();
+  };
+
+  const theme = isDarkMode ? { ...darkTheme} : { ...lightTheme };
+
   return (
-    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={theme}>
       <Container>
         <Header>
-          <h1>Lista de Tarefas</h1>
-          <ThemeToggleContainer onClick={toggleTheme} title={isDarkMode ? "Mudar para tema claro" : "Mudar para tema escuro"}>
+          <h1 style={{ fontWeight: 'bold' }}>Lista de Tarefas</h1>
+          <ThemeToggleContainer onClick={toggleTheme} title={isDarkMode ? 'Mudar para tema claro' : 'Mudar para tema escuro'}>
             <MuiIconButton color="inherit">
               {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
             </MuiIconButton>
@@ -131,7 +140,7 @@ const TasksListPage: React.FC = () => {
         </Header>
 
         <TaskListContainer>
-          {tasks.map(task => (
+          {tasks.map((task) => (
             <TaskItem key={task.id}>
               <div>
                 <TaskTitle>{task.title}</TaskTitle>
@@ -139,10 +148,10 @@ const TasksListPage: React.FC = () => {
                 <TaskDate>{task.date}</TaskDate>
               </div>
               <div>
-                <IconButton title="Editar" onClick={() => openModal(task)}>
+                <IconButton title="Editar" onClick={() => openTaskModal(task)}>
                   <EditIcon />
                 </IconButton>
-                <IconButton title="Excluir">
+                <IconButton title="Excluir" onClick={() => openDeleteModal(task)}>
                   <DeleteIcon />
                 </IconButton>
               </div>
@@ -150,15 +159,15 @@ const TasksListPage: React.FC = () => {
           ))}
         </TaskListContainer>
 
-        <NewTaskButton onClick={() => openModal()}>
+        <NewTaskButton onClick={() => openTaskModal()}>
           <AddIcon /> Criar Nova Tarefa
         </NewTaskButton>
 
-        <ReactModal isOpen={isModalOpen} onRequestClose={closeModal} style={customStyles}>
+        <ReactModal isOpen={isTaskModalOpen} onRequestClose={closeTaskModal} style={customStyles}>
           <ModalContainer>
             <ModalHeader>
               <ModalTitle>{currentTask ? 'Editar Tarefa' : 'Nova Tarefa'}</ModalTitle>
-              <ModalCloseButton onClick={closeModal}>×</ModalCloseButton>
+              <ModalCloseButton onClick={closeTaskModal}>×</ModalCloseButton>
             </ModalHeader>
             <ModalBody>
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -169,7 +178,7 @@ const TasksListPage: React.FC = () => {
                     type="text"
                     placeholder="Título"
                     value={modalTitle}
-                    onChange={e => setModalTitle(e.target.value)}
+                    onChange={(e) => setModalTitle(e.target.value)}
                     required
                   />
                 </div>
@@ -190,9 +199,22 @@ const TasksListPage: React.FC = () => {
             </ModalBody>
           </ModalContainer>
         </ReactModal>
+
+        <ReactModal isOpen={isDeleteModalOpen} onRequestClose={closeDeleteModal} style={customStyles}>
+          <ModalContainer>
+            <ModalHeader style={{ justifyContent: 'center' }}>
+              <ModalTitle>Confirmar exclusão</ModalTitle>
+              <ModalCloseButton onClick={closeDeleteModal}>×</ModalCloseButton>
+            </ModalHeader>
+            <ModalBody style={{ textAlign: 'center' }}>
+              <p>Tem certeza que deseja apagar essa tarefa?</p>
+              <SubmitButton onClick={confirmDelete} style={{ margin: '0 auto' }}>
+                Confirmar
+              </SubmitButton>
+            </ModalBody>
+          </ModalContainer>
+        </ReactModal>
       </Container>
     </ThemeProvider>
   );
-};
-
-export default TasksListPage;
+};export default TasksListPage;

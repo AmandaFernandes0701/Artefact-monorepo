@@ -13,7 +13,7 @@ export const Container = styled.div`
   min-height: 100vh;
   width: 100vw;
   padding: 20px;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.5s ease, color 0.5s ease;
 `;
 
 export const Header = styled.header`
@@ -37,7 +37,7 @@ export const ToggleButton = styled.button`
   padding: 8px 16px;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: background 0.3s ease;
+  transition: background 0.5s ease;
   
   &:hover {
     background: transparent;
@@ -58,7 +58,7 @@ export const TaskItem = styled.div`
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.border};
   border-radius: 8px;
   padding: 15px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
   
   &:hover {
     transform: translateY(-2px);
@@ -89,7 +89,7 @@ export const IconButton = styled.button`
   color: ${({ theme }: { theme: Theme }) => theme.primary};
   cursor: pointer;
   margin-left: 10px;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition: color 0.5s ease, transform 0.5s ease;
   
   &:hover {
     color: ${({ theme }: { theme: Theme }) => theme.text};
@@ -124,11 +124,10 @@ export const NewTaskButton = styled.button`
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.5s ease;
 
   &:hover {
-    background-color: ${({ theme }: ThemeProps) => theme.secondary};
-    opacity: 0.8;
+    background-color: ${(props) => props.theme.primaryHover};
   }
 
   svg {
@@ -136,7 +135,6 @@ export const NewTaskButton = styled.button`
   }
 `;
 
-/* Componentes para o Modal */
 export const ModalOverlay = styled.div`
   display: flex;
   position: fixed;
@@ -193,19 +191,26 @@ export const ModalBody = styled.div`
 
 export const ModalInput = styled.input`
   padding: 10px;
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.border};
+  background-color: ${({ theme }: { theme: Theme }) =>
+  theme.background === '#121212' ? '#333' : '#fff'};
+  color: ${({ theme }: { theme: Theme }) => theme.text};
+  border: 1px solid ${({ theme }: { theme: Theme }) =>
+    theme.background === '#121212' ? '#444' : theme.border};
   border-radius: 4px;
   font-size: 1rem;
 `;
 
 export const ModalTextarea = styled.textarea`
   padding: 10px;
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.border};
+  background-color: ${({ theme }: { theme: Theme }) =>
+    theme.background === '#121212' ? '#333' : '#fff'};
+  color: ${({ theme }: { theme: Theme }) => theme.text};
+  border: 1px solid ${({ theme }: { theme: Theme }) =>
+    theme.background === '#121212' ? '#444' : theme.border};
   border-radius: 4px;
   font-size: 1rem;
   resize: vertical;
 `;
-
 export const SubmitButton = styled.button`
   background-color: ${({ theme }: { theme: Theme }) => theme.primary};
   color: white;
@@ -215,10 +220,9 @@ export const SubmitButton = styled.button`
   font-size: 1rem;
   cursor: pointer;
   align-self: flex-end;
-  transition: background-color 0.3s ease;
+  transition: background-color 500ms ease;
 
   &:hover {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary};
-    opacity: 0.8;
+    background-color: ${({ theme }: { theme: Theme }) => theme.primaryHover};
   }
 `;
