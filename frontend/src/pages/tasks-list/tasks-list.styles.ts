@@ -8,11 +8,9 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0;
+  height: 100%;
   background: ${({ theme }: { theme: Theme }) => theme.background};
   color: ${({ theme }: { theme: Theme }) => theme.text};
-  min-height: 100vh;
-  width: 100vw;
-  padding: 20px;
   transition: background 0.5s ease, color 0.5s ease;
 `;
 

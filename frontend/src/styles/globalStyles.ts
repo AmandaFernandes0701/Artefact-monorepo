@@ -1,6 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+  html, body, #__next {
+    width: 100%;
+    height: 100%;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -12,8 +17,6 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     justify-content: center;
     font-size: 16px;
-    width: 100%;
-    height: 100%;
     line-height: 1.5;
     color: ${(props) => props.theme.text};
   }
