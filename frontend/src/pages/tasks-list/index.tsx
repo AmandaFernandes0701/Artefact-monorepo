@@ -31,6 +31,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useTarefas } from '../../hooks/useTarefas';
 import { Tarefa } from '../../models/Tarefa';
 import { toast } from 'react-toastify'; 
+import { ClipLoader } from "react-spinners";
 
 const customStyles = {
   overlay: {
@@ -173,8 +174,17 @@ const TasksListPage: React.FC = () => {
         </Header>
 
         <TaskListContainer>
-          {loading && <p>Carregando tarefas...</p>}
-          {Array.isArray(tarefas) && tarefas.length > 0 ? (
+        {loading && (
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", alignSelf: "center" }}>
+            <ClipLoader
+             color={theme.primary}
+             size={15}
+             cssOverride={{ borderWidth: '4px' }}
+             />
+            <p>Carregando tarefas...</p>
+          </div>
+        )}
+        {Array.isArray(tarefas) && tarefas.length > 0 && !loading ? (
             tarefas.map(tarefa =>
               tarefa && tarefa.titulo ? (
                 <TaskItem key={tarefa.id}>
@@ -197,15 +207,17 @@ const TasksListPage: React.FC = () => {
               ) : null
             )
           ) : (
-            <p
-              style={{
-                textAlign: 'center',
-                width: '100%',
-                marginTop: '20px',
-              }}
-            >
-              Nenhuma tarefa encontrada.
-            </p>
+            !loading && (
+              <p
+                style={{
+                  textAlign: 'center',
+                  width: '100%',
+                  marginTop: '20px',
+                }}
+              >
+                Nenhuma tarefa encontrada.
+              </p>
+            )
           )}
         </TaskListContainer>
 
