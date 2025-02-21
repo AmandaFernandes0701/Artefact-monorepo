@@ -162,7 +162,10 @@ const TasksListPage: React.FC = () => {
               <div>
                 <TaskTitle>{tarefa.titulo}</TaskTitle>
                 <TaskDescription>{tarefa.descricao}</TaskDescription>
-                <TaskDate>{tarefa.dataCriacao}</TaskDate>
+                <TaskDate>
+                  {new Date(tarefa.dataCriacao).toLocaleDateString('pt-BR')}
+                </TaskDate>
+
               </div>
               <div>
                 <IconButton title="Editar" onClick={() => openTaskModal(tarefa)}>
