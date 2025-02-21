@@ -28,7 +28,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { IconButton as MuiIconButton } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { LineWeight } from '@mui/icons-material';
+import { useTarefas } from '../../hooks/useTarefas';
 
 interface Task {
   id: number;
@@ -73,6 +73,16 @@ const TasksListPage: React.FC = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
 
+  // Aqui usamos o hook para buscar as tarefas do backend.
+  const { tarefas, loading, error } = useTarefas();
+
+  // Quando os dados forem carregados, vamos imprimir o resultado no console.
+  useEffect(() => {
+    if (!loading && !error) {
+      console.log('Tarefas do backend:', tarefas);
+    }
+  }, [tarefas, loading, error]);
+
   useEffect(() => {
     ReactModal.setAppElement(document.body);
   }, []);
@@ -81,6 +91,7 @@ const TasksListPage: React.FC = () => {
 
   const openTaskModal = (task?: Task) => {
     if (task) {
+      console.log('Tarefas do backend:', tarefas);
       setCurrentTask(task);
       setModalTitle(task.title);
       setModalDesc(task.description);
