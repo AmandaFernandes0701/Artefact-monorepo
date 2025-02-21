@@ -1,5 +1,7 @@
 import { DefaultTheme as Theme, styled } from 'styled-components';
 
+type ThemeProps = { theme: Theme };
+
 export const Container = styled.div`
   background: ${({ theme }: { theme: Theme }) => theme.background};
   color: ${({ theme }: { theme: Theme }) => theme.text};
@@ -86,5 +88,44 @@ export const IconButton = styled.button`
   &:hover {
     color: ${({ theme }: { theme: Theme }) => theme.text};
     transform: scale(1.1);
+  }
+`;
+
+export const ThemeToggleContainer = styled.button`
+  background: transparent;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    font-size: 1.5rem;
+    color: ${({ theme }: ThemeProps) => theme.primary};
+  }
+`;
+
+export const NewTaskButton = styled.button`
+  background-color: ${(props) => props.theme.primary};
+  color: white;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: ${({ theme }: ThemeProps) => theme.secondary};
+    opacity: 0.8;
+  }
+
+  svg {
+    font-size: 20px;
   }
 `;
