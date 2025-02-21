@@ -61,10 +61,10 @@ const TasksListPage: React.FC = () => {
   const { tarefas, loading, error, adicionarTarefa, editarTarefa, removerTarefa } = useTarefas();
 
   useEffect(() => {
-    if (!loading && !error && tarefas) {
+    if (!loading && !error && Array.isArray(tarefas)) {
       setTarefasLocal(tarefas);
-    } else{
-      setTarefasLocal([]);
+    } else {
+      setTarefasLocal([]); // Certifique-se de que sempre será um array
     }
   }, [tarefas, loading, error]);
 
@@ -141,22 +141,24 @@ const TasksListPage: React.FC = () => {
         <TaskListContainer>
           {loading && <p>Carregando tarefas...</p>}
           {error && <p>Erro ao carregar tarefas.</p>}
-          {tarefasLocal.map(tarefa => {
-            if (!tarefa || !tarefa.titulo) return null;
-            return (
-              <TaskItem key={tarefa.id}>
-                <div>
-                  <TaskTitle>{tarefa.titulo}</TaskTitle>
-                  <TaskDescription>{tarefa.descricao}</TaskDescription>
-                  <TaskDate>{new Date(tarefa.dataCriacao).toLocaleDateString('pt-BR')}</TaskDate>
-                </div>
-                <div>
-                  <IconButton onClick={() => openTaskModal(tarefa)}><EditIcon /></IconButton>
-                  <IconButton onClick={() => openDeleteModal(tarefa)}><DeleteIcon /></IconButton>
-                </div>
-              </TaskItem>
-            );
-          })}
+          {Array.isArray(tarefasLocal) && tarefasLocal.length > 0 ? (
+            tarefasLocal.map(tarefa => (
+              tarefa && tarefa.titulo ? (
+                <TaskItem key={tarefa.id}>
+                  <div>
+                    <TaskTitle>{tarefa.titulo}</TaskTitle>
+                    <TaskDescription>{tarefa.descricao}</TaskDescription>
+                    <TaskDate>{new Date(tarefa.dataCriacao).toLocaleDateString('pt-BR')}</TaskDate>
+                  </div>
+                  <div>
+                    <IconButton onClick={() => openTaskModal(tarefa)}><EditIcon /></IconButton>
+                    <IconButton onClick={() => openDeleteModal(tarefa)}><DeleteIcon /></IconButton>
+                  </div>
+                </TaskItem>
+              ) : null
+            ))
+          ) : (
+          <p style={{ textAlign: "center", width: "100%", marginTop: "20px" }}>Nenhuma tarefa encontrada.</p>)}
         </TaskListContainer>
 
         <NewTaskButton onClick={() => openTaskModal()}><AddIcon /> Criar Nova Tarefa</NewTaskButton>
