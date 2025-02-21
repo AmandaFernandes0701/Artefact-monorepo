@@ -102,7 +102,9 @@ export const IconButton = styled.button`
   }
 `;
 
-export const ThemeToggleContainer = styled.button`
+export const ThemeToggleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   background: transparent;
   border: none;
   padding: 8px;

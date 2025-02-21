@@ -160,13 +160,13 @@ const TasksListPage: React.FC = () => {
       <Container>
         <Header>
           <h1 style={{ fontWeight: 'bold' }}>Lista de Tarefas</h1>
-          <ThemeToggleContainer
-            onClick={toggleTheme}
-            title={
-              isDarkMode ? 'Mudar para tema claro' : 'Mudar para tema escuro'
-            }
-          >
-            <MuiIconButton>
+          <ThemeToggleContainer>
+            <MuiIconButton
+              onClick={toggleTheme}
+              title={
+                isDarkMode ? 'Mudar para tema claro' : 'Mudar para tema escuro'
+              }
+            >
               {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
             </MuiIconButton>
           </ThemeToggleContainer>
