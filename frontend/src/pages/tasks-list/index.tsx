@@ -58,6 +58,8 @@ const TasksListPage: React.FC = () => {
   const [modalDescricao, setModalDescricao] = useState('');
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [tarefaADeletar, setTarefaADeletar] = useState<Tarefa | null>(null);
+  const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
+
   const {
     tarefas,
     loading,
@@ -93,34 +95,41 @@ const TasksListPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (tarefaAtual) {
-      const updatedTarefa = {
-        ...tarefaAtual,
-        titulo: modalTitulo,
-        descricao: modalDescricao,
-      };
-      await editarTarefa(tarefaAtual.id, updatedTarefa);
-      toast.success("Tarefa atualizada com sucesso!", {
-        style: {
-          background: theme.background,
-        },
+    setFormErrors({});
+  
+    try {
+      if (tarefaAtual) {
+        const updatedTarefa = {
+          ...tarefaAtual,
+          titulo: modalTitulo,
+          descricao: modalDescricao,
+        };
+        await editarTarefa(tarefaAtual.id, updatedTarefa);
+        toast.success("Tarefa atualizada com sucesso!", {
+          style: { background: theme.background },
+        });
+      } else {
+        await adicionarTarefa({ titulo: modalTitulo, descricao: modalDescricao });
+        toast.success("Tarefa criada com sucesso!", {
+          style: { background: theme.background },
+        });
+      }
+      closeTaskModal();
+    } catch (error: any) {
+  
+      const errorsArray = JSON.parse(error.message);
+  
+      const formattedErrors: { [key: string]: string } = {};
+  
+      errorsArray.forEach((err: any) => {
+        if (err.path && err.path[0]) {
+          formattedErrors[err.path[0]] = err.message;
+        }
       });
-    } else {
-      console.log('modalTitulo:', modalTitulo);
-      console.log('modalDescricao:', modalDescricao);
-      const novaTarefa = await adicionarTarefa({
-        titulo: modalTitulo,
-        descricao: modalDescricao,
-      });
-      toast.success("Tarefa criada com sucesso!", {
-        style: {
-          background: theme.background,
-        },
-      });
+        setFormErrors(formattedErrors);
     }
-    closeTaskModal();
   };
-
+  
   const openDeleteModal = (tarefa: Tarefa) => {
     setTarefaADeletar(tarefa);
     setIsDeleteModalOpen(true);
@@ -164,7 +173,6 @@ const TasksListPage: React.FC = () => {
 
         <TaskListContainer>
           {loading && <p>Carregando tarefas...</p>}
-          {error && <p>Erro ao carregar tarefas.</p>}
           {Array.isArray(tarefas) && tarefas.length > 0 ? (
             tarefas.map(tarefa =>
               tarefa && tarefa.titulo ? (
@@ -229,15 +237,21 @@ const TasksListPage: React.FC = () => {
                 <ModalInput
                   value={modalTitulo}
                   onChange={e => setModalTitulo(e.target.value)}
-                  required
+                  // required
                 />
+                {formErrors.titulo && (
+                  <p style={{ color: 'red', fontSize: '14px' }}>{formErrors.titulo}</p>
+                )}
                 <label>Descrição</label>
-                <ModalTextarea
+                <ModalTextarea 
                   style={{ maxHeight: '250px', minHeight: '25px' }}
                   value={modalDescricao}
                   onChange={e => setModalDescricao(e.target.value)}
                   rows={4}
                 />
+                {formErrors.descricao && (
+                  <p style={{ color: 'red', fontSize: '14px' }}>{formErrors.descricao}</p>
+                )}
                 <SubmitButton type="submit">
                   {tarefaAtual ? 'Salvar' : 'Adicionar'}
                 </SubmitButton>
