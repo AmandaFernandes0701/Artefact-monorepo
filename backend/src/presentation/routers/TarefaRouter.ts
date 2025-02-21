@@ -12,7 +12,9 @@ export const tarefaRouter = t.router({
         titulo: z.string()
         .nonempty('Por favor, informe um título.')
         .max(50, 'O título deve ter no máximo 50 caracteres.'),
-        descricao: z.string().optional(),
+        descricao: z.string()
+        .max(200, 'A descrição deve ter no máximo 200 caracteres.')
+        .optional(),
       })
     )
     .mutation(({ input }) => {
@@ -31,7 +33,9 @@ export const tarefaRouter = t.router({
         titulo: z.string()
         .nonempty('Por favor, informe um título.')
         .max(50, 'O título deve ter no máximo 50 caracteres.'),
-        descricao: z.string().optional(),
+        descricao: z.string()
+        .max(200, 'A descrição deve ter no máximo 200 caracteres.')
+        .optional(),
       })
     )
     .mutation(({ input }) => {
