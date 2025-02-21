@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import ReactModal from 'react-modal';
 import {
+  FundoDiv,
   Container,
   Header,
   TaskListContainer,
@@ -44,7 +45,6 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     transform: 'translate(-50%, -50%)',
-    minWidth: '600px',
     background: 'transparent',
     border: 'none',
     padding: 0,
@@ -158,153 +158,155 @@ const TasksListPage: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container>
-        <Header>
-          <h1 style={{ fontWeight: 'bold' }}>Lista de Tarefas</h1>
-          <ThemeToggleContainer>
-            <MuiIconButton
-              onClick={toggleTheme}
-              title={
-                isDarkMode ? 'Mudar para tema claro' : 'Mudar para tema escuro'
-              }
-            >
-              {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
-            </MuiIconButton>
-          </ThemeToggleContainer>
-        </Header>
-
-        <TaskListContainer>
-        {loading && (
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", alignSelf: "center" }}>
-            <ClipLoader
-             color={theme.primary}
-             size={15}
-             cssOverride={{ borderWidth: '4px' }}
-             />
-            <p>Carregando tarefas...</p>
-          </div>
-        )}
-        {Array.isArray(tarefas) && tarefas.length > 0 && !loading ? (
-            tarefas.map(tarefa =>
-              tarefa && tarefa.titulo ? (
-                <TaskItem key={tarefa.id}>
-                  <div>
-                    <TaskTitle>{tarefa.titulo}</TaskTitle>
-                    <TaskDescription>{tarefa.descricao}</TaskDescription>
-                    <TaskDate>
-                      {new Date(tarefa.dataCriacao).toLocaleDateString('pt-BR')}
-                    </TaskDate>
-                  </div>
-                  <div>
-                    <IconButton onClick={() => openTaskModal(tarefa)}>
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton onClick={() => openDeleteModal(tarefa)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </div>
-                </TaskItem>
-              ) : null
-            )
-          ) : (
-            !loading && (
-              <p
-                style={{
-                  textAlign: 'center',
-                  width: '100%',
-                  marginTop: '20px',
-                }}
+      <FundoDiv>
+        <Container>
+          <Header>
+            <ThemeToggleContainer>
+              <MuiIconButton
+                onClick={toggleTheme}
+                title={
+                  isDarkMode ? 'Mudar para tema claro' : 'Mudar para tema escuro'
+                }
               >
-                Nenhuma tarefa encontrada.
-              </p>
-            )
+                {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
+              </MuiIconButton>
+            </ThemeToggleContainer>
+            <h1 style={{ fontWeight: 'bold' }}>Lista de Tarefas</h1>
+          </Header>
+
+          <TaskListContainer>
+          {loading && (
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", alignSelf: "center" }}>
+              <ClipLoader
+              color={theme.primary}
+              size={15}
+              cssOverride={{ borderWidth: '4px' }}
+              />
+              <p>Carregando tarefas...</p>
+            </div>
           )}
-        </TaskListContainer>
-
-        <NewTaskButton onClick={() => openTaskModal()}>
-          <AddIcon /> Criar Nova Tarefa
-        </NewTaskButton>
-
-        <ReactModal
-          isOpen={isTaskModalOpen}
-          onRequestClose={closeTaskModal}
-          style={customStyles}
-        >
-          <ModalContainer>
-            <ModalHeader>
-              <ModalTitle>
-                {tarefaAtual ? 'Editar Tarefa' : 'Nova Tarefa'}
-              </ModalTitle>
-              <ModalCloseButton onClick={closeTaskModal}>×</ModalCloseButton>
-            </ModalHeader>
-            <ModalBody>
-              <form
-                onSubmit={handleSubmit}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '10px',
-                }}
-              >
-                <label>Título</label>
-                <ModalInput
-                  value={modalTitulo}
-                  onChange={e => setModalTitulo(e.target.value)}
-                  // required
-                />
-                {formErrors.titulo && (
-                  <p style={{ color: 'red', fontSize: '14px' }}>{formErrors.titulo}</p>
-                )}
-                <label>Descrição</label>
-                <ModalTextarea 
-                  style={{ maxHeight: '250px', minHeight: '25px' }}
-                  value={modalDescricao}
-                  onChange={e => setModalDescricao(e.target.value)}
-                  rows={4}
-                />
-                {formErrors.descricao && (
-                  <p style={{ color: 'red', fontSize: '14px' }}>{formErrors.descricao}</p>
-                )}
-                <SubmitButton type="submit">
-                  {tarefaAtual ? 'Salvar' : 'Adicionar'}
-                </SubmitButton>
-              </form>
-            </ModalBody>
-          </ModalContainer>
-        </ReactModal>
-
-        <ReactModal
-          isOpen={isDeleteModalOpen}
-          onRequestClose={closeDeleteModal}
-          style={customStyles}
-        >
-          <ModalContainer>
-            <ModalHeader>
-              <ModalTitle>Confirmar Exclusão</ModalTitle>
-              <ModalCloseButton onClick={closeDeleteModal}>×</ModalCloseButton>
-            </ModalHeader>
-            <ModalBody>
-              <p style={{ textAlign: 'center' }}>
-                Tem certeza que deseja excluir esta tarefa?
-              </p>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginTop: '20px',
-                }}
-              >
-                <SubmitButton
-                  style={{ alignSelf: 'center' }}
-                  onClick={confirmDelete}
+          {Array.isArray(tarefas) && tarefas.length > 0 && !loading ? (
+              tarefas.map(tarefa =>
+                tarefa && tarefa.titulo ? (
+                  <TaskItem key={tarefa.id}>
+                    <div>
+                      <TaskTitle>{tarefa.titulo}</TaskTitle>
+                      <TaskDescription>{tarefa.descricao}</TaskDescription>
+                      <TaskDate>
+                        {new Date(tarefa.dataCriacao).toLocaleDateString('pt-BR')}
+                      </TaskDate>
+                    </div>
+                    <div>
+                      <IconButton onClick={() => openTaskModal(tarefa)}>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton onClick={() => openDeleteModal(tarefa)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </div>
+                  </TaskItem>
+                ) : null
+              )
+            ) : (
+              !loading && (
+                <p
+                  style={{
+                    textAlign: 'center',
+                    width: '100%',
+                    marginTop: '20px',
+                  }}
                 >
-                  Excluir
-                </SubmitButton>
-              </div>
-            </ModalBody>
-          </ModalContainer>
-        </ReactModal>
-      </Container>
+                  Nenhuma tarefa encontrada.
+                </p>
+              )
+            )}
+          </TaskListContainer>
+
+          <NewTaskButton onClick={() => openTaskModal()}>
+            <AddIcon /> Criar Nova Tarefa
+          </NewTaskButton>
+
+          <ReactModal
+            isOpen={isTaskModalOpen}
+            onRequestClose={closeTaskModal}
+            style={customStyles}
+          >
+            <ModalContainer>
+              <ModalHeader>
+                <ModalTitle>
+                  {tarefaAtual ? 'Editar Tarefa' : 'Nova Tarefa'}
+                </ModalTitle>
+                <ModalCloseButton onClick={closeTaskModal}>×</ModalCloseButton>
+              </ModalHeader>
+              <ModalBody>
+                <form
+                  onSubmit={handleSubmit}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px',
+                  }}
+                >
+                  <label>Título</label>
+                  <ModalInput
+                    value={modalTitulo}
+                    onChange={e => setModalTitulo(e.target.value)}
+                    // required
+                  />
+                  {formErrors.titulo && (
+                    <p style={{ color: 'red', fontSize: '14px' }}>{formErrors.titulo}</p>
+                  )}
+                  <label>Descrição</label>
+                  <ModalTextarea 
+                    style={{ maxHeight: '250px', minHeight: '25px' }}
+                    value={modalDescricao}
+                    onChange={e => setModalDescricao(e.target.value)}
+                    rows={4}
+                  />
+                  {formErrors.descricao && (
+                    <p style={{ color: 'red', fontSize: '14px' }}>{formErrors.descricao}</p>
+                  )}
+                  <SubmitButton type="submit">
+                    {tarefaAtual ? 'Salvar' : 'Adicionar'}
+                  </SubmitButton>
+                </form>
+              </ModalBody>
+            </ModalContainer>
+          </ReactModal>
+
+          <ReactModal
+            isOpen={isDeleteModalOpen}
+            onRequestClose={closeDeleteModal}
+            style={customStyles}
+          >
+            <ModalContainer>
+              <ModalHeader>
+                <ModalTitle>Confirmar Exclusão</ModalTitle>
+                <ModalCloseButton onClick={closeDeleteModal}>×</ModalCloseButton>
+              </ModalHeader>
+              <ModalBody>
+                <p style={{ textAlign: 'center' }}>
+                  Tem certeza que deseja excluir esta tarefa?
+                </p>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: '20px',
+                  }}
+                >
+                  <SubmitButton
+                    style={{ alignSelf: 'center' }}
+                    onClick={confirmDelete}
+                  >
+                    Excluir
+                  </SubmitButton>
+                </div>
+              </ModalBody>
+            </ModalContainer>
+          </ReactModal>
+        </Container>
+      </FundoDiv>
     </ThemeProvider>
   );
 };

@@ -1,14 +1,27 @@
-import { DefaultTheme as Theme, styled } from 'styled-components';
+import { DefaultTheme as Theme, css, styled } from 'styled-components';
 
 type ThemeProps = { theme: Theme };
+
+export const FundoDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; 
+  margin: 0;
+  height: 100%; 
+  background: ${({ theme }: { theme: Theme }) => theme.background};
+  color: ${({ theme }: { theme: Theme }) => theme.text};
+  transition: background 0.5s ease, color 0.5s ease;
+`;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 20px 0px 50px 0px;
   margin: 0;
-  height: 100%;
+  height: fit-content;
   background: ${({ theme }: { theme: Theme }) => theme.background};
   color: ${({ theme }: { theme: Theme }) => theme.text};
   transition: background 0.5s ease, color 0.5s ease;
@@ -16,6 +29,7 @@ export const Container = styled.div`
 
 export const Header = styled.header`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
@@ -46,6 +60,8 @@ export const TaskListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+  max-height: 650px;
+  overflow-y: auto;
   min-width: 30%;
 
   @media (max-width: 1200px) {
@@ -158,10 +174,14 @@ export const ModalContainer = styled.div`
   color: ${({ theme }: { theme: Theme }) => theme.text};
   padding: 20px;
   border-radius: 8px;
-  width: 90%;
+  width: 50vw;
   max-width: 500px;
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 800px) {
+    width: 80vw;
+  }
 `;
 
 export const ModalHeader = styled.div`
