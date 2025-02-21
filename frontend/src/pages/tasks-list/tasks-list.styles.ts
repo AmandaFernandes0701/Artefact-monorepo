@@ -184,8 +184,8 @@ export const ModalCloseButton = styled.button`
 `;
 
 export const ModalBody = styled.div`
-  display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
 `;
 

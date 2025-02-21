@@ -37,8 +37,6 @@ const customStyles = {
     zIndex: 999,
   },
   content: {
-    justifyContent: 'center',
-    alignItems: 'center',
     top: '50%',
     left: '50%',
     right: 'auto',
@@ -184,7 +182,9 @@ const TasksListPage: React.FC = () => {
             </ModalHeader>
             <ModalBody>
             <p style={{ textAlign: "center" }}>Tem certeza que deseja excluir esta tarefa?</p>
-              <SubmitButton onClick={confirmDelete}>Excluir</SubmitButton>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+              <SubmitButton style={{ alignSelf: 'center' }} onClick={confirmDelete}>Excluir</SubmitButton>
+            </div>
             </ModalBody>
           </ModalContainer>
         </ReactModal>
