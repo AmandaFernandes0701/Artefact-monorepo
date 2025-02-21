@@ -43,6 +43,7 @@ export const ToggleButton = styled.button`
     background: transparent;
   }
 `;
+
 export const TaskListContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -132,5 +133,92 @@ export const NewTaskButton = styled.button`
 
   svg {
     font-size: 20px;
+  }
+`;
+
+/* Componentes para o Modal */
+export const ModalOverlay = styled.div`
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+export const ModalContainer = styled.div`
+  background: ${({ theme }: { theme: Theme }) => theme.background};
+  color: ${({ theme }: { theme: Theme }) => theme.text};
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+`;
+
+export const ModalHeader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+`;
+
+export const ModalTitle = styled.h2`
+  margin: 0;
+  font-size: 1.5rem;
+`;
+
+export const ModalCloseButton = styled.button`
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: ${({ theme }: { theme: Theme }) => theme.primary};
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+export const ModalBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+export const ModalInput = styled.input`
+  padding: 10px;
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.border};
+  border-radius: 4px;
+  font-size: 1rem;
+`;
+
+export const ModalTextarea = styled.textarea`
+  padding: 10px;
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.border};
+  border-radius: 4px;
+  font-size: 1rem;
+  resize: vertical;
+`;
+
+export const SubmitButton = styled.button`
+  background-color: ${({ theme }: { theme: Theme }) => theme.primary};
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary};
+    opacity: 0.8;
   }
 `;
