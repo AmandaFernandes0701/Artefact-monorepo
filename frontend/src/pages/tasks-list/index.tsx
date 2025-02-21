@@ -172,7 +172,7 @@ const TasksListPage: React.FC = () => {
                 <label>Título</label>
                 <ModalInput value={modalTitulo} onChange={e => setModalTitulo(e.target.value)} required />
                 <label>Descrição</label>
-                <ModalTextarea value={modalDescricao} onChange={e => setModalDescricao(e.target.value)} rows={4} />
+                <ModalTextarea style={{ maxHeight: '250px', minHeight: '25px' }} value={modalDescricao} onChange={e => setModalDescricao(e.target.value)} rows={4} />
                 <SubmitButton type="submit">{tarefaAtual ? 'Salvar' : 'Adicionar'}</SubmitButton>
               </form>
             </ModalBody>
