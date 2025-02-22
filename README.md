@@ -171,6 +171,24 @@ The backend leverages a carefully selected suite of technologies designed for pe
 
 The frontend is developed using Next.js, a framework renowned for its hybrid rendering capabilities that combine server-side rendering (SSR) and static site generation (SSG) for optimal performance and SEO. The architecture is designed to be modular, scalable, and maintainable.
 
+ ```bash
+📦 frontend  
+ ┣ 📂 src                        # Main source code directory 
+ ┃ ┣ 📂 assets                   # Static assets (images, icons, etc.) 
+ ┃ ┣ 📂 components               # Reusable UI components (e.g., Button, Input, Modal, TaskList, TaskForm)  
+ ┃ ┣ 📂 hooks                    # Custom React hooks (e.g., useTarefas.ts)  
+ ┃ ┣ 📂 models                   # Domain models representing frontend data (e.g., Tarefa.ts)  
+ ┃ ┣ 📂 pages                    # Next.js pages (e.g., _app.tsx, _document.tsx, tasks-list/index.tsx)  
+ ┃ ┣ 📂 services                 # API service calls & business logic wrappers (e.g., tarefaService.ts)  
+ ┃ ┣ 📂 styles                   # Global styles, themes, and style configurations (e.g., globalStyles.ts, theme.ts)  
+ ┃ ┣ 📂 utils                    # Utility functions (e.g., dateUtils.ts, validators.ts)  
+ ┃ ┗ 📜 next-env.d.ts            # TypeScript definitions for Next.js environment  
+ ┣ 📂 .next                      # Auto-generated build artifacts and cache (Next.js output)  
+ ┣ 📜 next.config.js             # Next.js configuration file for advanced customization  
+ ┣ 📜 package.json               # NPM configuration with frontend-specific dependencies & scripts  
+ ┣ 📜 tsConfig.json              # TypeScript configuration ensuring strict type-safety  
+```
+
 - **Page-Based Routing:**  
   Next.js leverages file-based routing to dynamically generate pages, ensuring that both SSR and SSG can be seamlessly integrated.
 
