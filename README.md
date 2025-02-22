@@ -337,9 +337,9 @@ The API utilizes tRPC to enforce strict type safety and runtime validation. Each
 
 For your convenience, please find the links to the pre-configured Postman environment and collection below:
 
-🔗 [Postman Environment](https://app.getpostman.com/join-team?invite_code=bf2218af4b1e017aef65cb2aa2bf14fc691028db216e436c06eef2a25e6e665e&target_code=72cc7c16264c4baa124b568840d153b9)
+🔗 [Postman Collection](https://app.getpostman.com/join-team?invite_code=bf2218af4b1e017aef65cb2aa2bf14fc691028db216e436c06eef2a25e6e665e&target_code=72cc7c16264c4baa124b568840d153b9)
 
-- Postman Collection
+🔗 [Postman Environment](https://interstellar-shuttle-703014.postman.co/workspace/My-Workspace~f245e760-a491-4601-88ad-9b7386da9e6a/environment/42482615-015b3a3a-71fe-48f4-a8a4-6b2ac8478ccd?action=share&creator=42482615)
   
 These resources are provided to facilitate rapid, consistent, and reproducible testing of all backend routes locally via Postman.
 
