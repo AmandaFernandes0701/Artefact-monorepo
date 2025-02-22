@@ -323,7 +323,7 @@ The frontend leverages modern frameworks and libraries to create a robust, high-
 The project is organized as a monorepo, which enhances consistency and simplifies dependency management between the backend and frontend. Key files and directories include:
 
 - **Root Files:**  
-  - `.gitignore` and `lista_arquivos.txt` – These files outline the project’s file inclusion rules and document the file structure.
+  - `.gitignore` – This file specifies which files and directories should be ignored by Git, preventing them from being tracked in version control.
   - `package.json` and `package-lock.json` – Define project-level dependencies and lockfile configurations.
 
 - **Backend Directory:**  
