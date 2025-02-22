@@ -52,7 +52,8 @@ The backend is organized following a layered, Clean Architecture paradigm that e
  ┃ ┣ 📂 infrastructure           # External integrations (e.g., database adapters, API clients)  
  ┃ ┣ 📂 presentation             # API endpoints and controllers (e.g., TarefaRouter.js)  
  ┃ ┣ 📂 utils                    # Utility functions and centralized error handlers (e.g., errorHandler.js)  
- ┃ ┗ 📜 server.js                # Entry point for the backend server  
+ ┃ ┗ 📜 server.js                # Entry point for the backend server
+ ┣ 📂 postman                    # Contains pre-configured Postman Collection and Environment for easy API testing.  
  ┣ 📂 src                        # Original TypeScript source code  
  ┃ ┣ 📂 application              # Business logic use cases (e.g., TarefaUseCases.ts)  
  ┃ ┣ 📂 config                   # Environment configuration & settings (e.g., env.ts)  
