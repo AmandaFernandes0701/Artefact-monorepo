@@ -252,43 +252,48 @@ To further enrich the user experience, subtle animations and micro-interactions 
 
     The following visual artifacts illustrate key aspects of the UI design and interaction paradigms:
 
-    Task Listing Screen (Light Mode):
+<details>
+<summary>Click here to see all screenshots from this project</summary>
 
-   ![image](https://github.com/user-attachments/assets/f353bfeb-d435-4ced-a6e7-8658a56a503a)
-   
-    _Figure 1: Task Listing Screen in Light Mode_
-   
-    ---
-   
-    Task Listing Screen (Dark Mode):
+**Task Listing Screen (Light Mode):**
 
-    ![image](https://github.com/user-attachments/assets/9bac42fe-57fa-4315-a5ed-cd01b5d9eef9)
-   
-    _Figure 2: Task Listing Screen in Dark Mode_
+![image](https://github.com/user-attachments/assets/f353bfeb-d435-4ced-a6e7-8658a56a503a)
 
-   ---
-    
-    Edit Task Modal:
+_Figure 1: Task Listing Screen in Light Mode_
 
-    ![image](https://github.com/user-attachments/assets/5908ed4a-828d-46f1-8382-67caac86f810)
-   
-    _Figure 3: Edit Task Modal_
+---
 
-   ---
-    
-    Edit Task Modal with Inline Error Messages:
+**Task Listing Screen (Dark Mode):**
 
-   ![image](https://github.com/user-attachments/assets/193305c5-c100-4fcd-893a-a45e41fa91c0)
-   
-    _Figure 4: Edit Task Modal Displaying Inline Error Messages_
+![image](https://github.com/user-attachments/assets/9bac42fe-57fa-4315-a5ed-cd01b5d9eef9)
 
-   ---
-    
-    Delete Task Modal:
+_Figure 2: Task Listing Screen in Dark Mode_
 
-   ![image](https://github.com/user-attachments/assets/27d40177-0ad0-407c-8c53-078cd4570e43)
-   
-    _Figure 5: Delete Task Modal_
+---
+
+**Edit Task Modal:**
+
+![image](https://github.com/user-attachments/assets/5908ed4a-828d-46f1-8382-67caac86f810)
+
+_Figure 3: Edit Task Modal_
+
+---
+
+**Edit Task Modal with Inline Error Messages:**
+
+![image](https://github.com/user-attachments/assets/193305c5-c100-4fcd-893a-a45e41fa91c0)
+
+_Figure 4: Edit Task Modal Displaying Inline Error Messages_
+
+---
+
+**Delete Task Modal:**
+
+![image](https://github.com/user-attachments/assets/27d40177-0ad0-407c-8c53-078cd4570e43)
+
+_Figure 5: Delete Task Modal_
+
+</details>
 
 In conclusion, the integration of minimalistic design, responsive layouts, dynamic theming, and robust accessibility features culminates in an exceptional user experience. This comprehensive approach not only meets but exceeds modern UX/UI standards, ensuring that the Task Management Application remains both aesthetically appealing and functionally robust.
 
