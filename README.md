@@ -346,27 +346,17 @@ These resources are provided to facilitate rapid, consistent, and reproducible t
 ### Alternative Setup: Importing Postman Files Manually
 If you are unable to access the direct links, you can manually import the Postman Collection and Environment files, which are stored in the backend repository inside the postman/ folder.
 
-####Importing the Postman Collection
-Open Postman.
-Click "File" > "Import" (or click the "Import" button in the top-left corner).
+#### Importing the Postman Collection
+- Open Postman.
+- Click "File" > "Import" (or click the "Import" button in the top-left corner).
+- Select the file: postman/Artefact.postman_collection.json
+- Click "Open", and the collection will be added to your Postman workspace.
 
-Select the file:
-
-📂 postman/Artefact.postman_collection.json
-
-Click "Open", and the collection will be added to your Postman workspace.
-
-####Importing the Postman Environment
-
-In Postman, go to the "Environments" tab.
-
-Click on "Import".
-
-Select the file:
-
-📂 postman/Artefact.postman_environment.json
-
-Click "Open", and the environment will be added.
+#### Importing the Postman Environment
+- In Postman, go to the "Environments" tab.
+- Click on "Import".
+- Select the file: postman/Artefact.postman_environment.json
+- Click "Open", and the environment will be added.
 
 Make sure to activate the environment before making API requests.
 
