@@ -231,16 +231,52 @@ State management is implemented using a combination of React Context and hooks, 
 The user interface is designed to be intuitive, responsive, and accessible:
 
 - **Minimalistic and Intuitive Layout:**  
-  The design prioritizes clarity and ease of navigation, ensuring that users can manage tasks effortlessly.
+The design prioritizes clarity and ease of navigation, enabling users to manage tasks effortlessly. By adopting atomic design principles, every UI element—from buttons to complex modals—is constructed as a reusable component. This modular approach not only streamlines development but also enhances consistency, ensuring that users encounter a predictable and coherent interface throughout the application.
   
 - **Responsive Design:**  
-  The application is optimized for various devices—desktop, tablet, and mobile—ensuring a consistent user experience across all platforms.
+Optimized for an array of devices—ranging from desktops to tablets and mobile phones—the interface utilizes responsive design techniques integrated with styled-components. This ensures that the layout dynamically adjusts to varying screen sizes and resolutions, providing a seamless and consistent experience regardless of the device.
   
-- **Accessibility:**  
-  Incorporates ARIA roles, keyboard navigability, and high-contrast themes, ensuring compliance with accessibility standards.
+- **Dynamic Theming and Visual Consistency:**  
+A sophisticated dual-theme system is implemented using styled-components, enabling runtime switching between Light Mode and Dark Mode. This dynamic theming is achieved through JavaScript-driven style encapsulation and CSS custom properties, ensuring high contrast ratios and adherence to accessibility standards. The visual consistency across themes reinforces usability, while the minimalistic aesthetic minimizes cognitive load, allowing users to focus on their tasks.
   
-- **Feedback Mechanisms:**  
-  Immediate visual feedback for user interactions, such as form validations and notifications (e.g., via React Toastify), improves overall usability.
+- **Modal Dialogs and Interaction Design:**
+ Critical user interactions, such as editing and deleting tasks, are managed via meticulously designed modal dialogs. These modals are not only responsive but are also tightly integrated with the application’s state management system to ensure context-aware interactions. Inline validation is a key feature—error messages are conspicuously displayed in a contrasting red immediately beneath the relevant input fields. This immediate feedback facilitates prompt error correction, thereby enhancing overall usability.
+ 
+-  **Accessibility and Feedback Mechanisms:**
+Accessibility is a cornerstone of the UI design. The interface incorporates ARIA roles, keyboard navigability, and high-contrast themes to meet stringent accessibility standards. Immediate visual feedback, including real-time form validations and notifications (e.g., via React Toastify), is provided to inform users about the outcomes of their actions, thereby reducing errors and streamlining the interaction flow.
+
+-  **Advanced Micro-interactions and Animation:**
+To further enrich the user experience, subtle animations and micro-interactions are integrated throughout the interface. These enhancements—such as smooth transitions, hover effects, and responsive feedback cues—add an additional layer of intuitiveness and engagement without detracting from the functional clarity of the design.
+
+-  **Visual Artifacts**
+The following visual artifacts illustrate key aspects of the UI design and interaction paradigms:
+
+Task Listing Screen (Light Mode):
+
+
+Figure 1: Task Listing Screen in Light Mode
+
+Task Listing Screen (Dark Mode):
+
+
+Figure 2: Task Listing Screen in Dark Mode
+
+Edit Task Modal:
+
+
+Figure 3: Edit Task Modal
+
+Edit Task Modal with Inline Error Messages:
+
+
+Figure 4: Edit Task Modal Displaying Inline Error Messages
+
+Delete Task Modal:
+
+
+Figure 5: Delete Task Modal
+
+In conclusion, the integration of minimalistic design, responsive layouts, dynamic theming, and robust accessibility features culminates in an exceptional user experience. This comprehensive approach not only meets but exceeds modern UX/UI standards, ensuring that the Task Management Application remains both aesthetically appealing and functionally robust.
 
 ### Technology Stack & Rationale <a name="frontend-technology"></a>
 
