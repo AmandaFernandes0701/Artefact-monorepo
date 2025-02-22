@@ -256,7 +256,7 @@ To further enrich the user experience, subtle animations and micro-interactions 
 
    ![image](https://github.com/user-attachments/assets/f353bfeb-d435-4ced-a6e7-8658a56a503a)
    
-    Figure 1: Task Listing Screen in Light Mode
+    _Figure 1: Task Listing Screen in Light Mode_
    
     ---
    
@@ -264,7 +264,7 @@ To further enrich the user experience, subtle animations and micro-interactions 
 
     ![image](https://github.com/user-attachments/assets/9bac42fe-57fa-4315-a5ed-cd01b5d9eef9)
    
-    Figure 2: Task Listing Screen in Dark Mode
+    _Figure 2: Task Listing Screen in Dark Mode_
 
    ---
     
@@ -272,7 +272,7 @@ To further enrich the user experience, subtle animations and micro-interactions 
 
     ![image](https://github.com/user-attachments/assets/5908ed4a-828d-46f1-8382-67caac86f810)
    
-    Figure 3: Edit Task Modal
+    _Figure 3: Edit Task Modal_
 
    ---
     
@@ -280,7 +280,7 @@ To further enrich the user experience, subtle animations and micro-interactions 
 
    ![image](https://github.com/user-attachments/assets/193305c5-c100-4fcd-893a-a45e41fa91c0)
    
-    Figure 4: Edit Task Modal Displaying Inline Error Messages
+    _Figure 4: Edit Task Modal Displaying Inline Error Messages_
 
    ---
     
@@ -288,7 +288,7 @@ To further enrich the user experience, subtle animations and micro-interactions 
 
    ![image](https://github.com/user-attachments/assets/27d40177-0ad0-407c-8c53-078cd4570e43)
    
-    Figure 5: Delete Task Modal
+    _Figure 5: Delete Task Modal_
 
 In conclusion, the integration of minimalistic design, responsive layouts, dynamic theming, and robust accessibility features culminates in an exceptional user experience. This comprehensive approach not only meets but exceeds modern UX/UI standards, ensuring that the Task Management Application remains both aesthetically appealing and functionally robust.
 
