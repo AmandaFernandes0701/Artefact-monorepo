@@ -42,6 +42,27 @@ This project was developed as a technical challenge for a Fullstack Developer po
 
 The backend is organized following a layered, Clean Architecture paradigm that ensures a strict separation of concerns, thus enhancing maintainability, scalability, and testability. The architecture is partitioned into the following layers:
 
+ ```bash
+📦 backend  
+ ┣ 📂 dist                       # Compiled output (JavaScript) from TypeScript 
+ ┃ ┣ 📂 application              # Business logic use cases (e.g., TarefaUseCases.js)  
+ ┃ ┣ 📂 config                   # Configuration files & environment settings (e.g., env.js)  
+ ┃ ┣ 📂 domain                   # Core domain entities and business rules (e.g., Tarefa.js)  
+ ┃ ┣ 📂 infrastructure           # External integrations (e.g., database adapters, API clients)  
+ ┃ ┣ 📂 presentation             # API endpoints and controllers (e.g., TarefaRouter.js)  
+ ┃ ┣ 📂 utils                    # Utility functions and centralized error handlers (e.g., errorHandler.js)  
+ ┃ ┗ 📜 server.js                # Entry point for the backend server  
+ ┣ 📂 src                        # Original TypeScript source code  
+ ┃ ┣ 📂 application              # Business logic use cases (e.g., TarefaUseCases.ts)  
+ ┃ ┣ 📂 config                   # Environment configuration & settings (e.g., env.ts)  
+ ┃ ┣ 📂 domain                   # Domain entities with invariants (e.g., Tarefa.ts)  
+ ┃ ┣ 📂 presentation             # API controllers & routers (e.g., TarefaRouter.ts)  
+ ┃ ┣ 📂 utils                    # Helper functions and error messages (e.g., errorMessages.ts)  
+ ┃ ┗ 📜 server.ts                # Main server initialization and middleware setup  
+ ┣ 📜 package.json               # NPM configuration with backend-specific dependencies & scripts  
+ ┣ 📜 tsconfig.json              # TypeScript configuration for strict type-checking  
+ ```
+
 - **Application Layer:**  
   Contains _use cases_ (e.g., `TarefaUseCases.ts`) that orchestrate business logic. This layer strictly adheres to SOLID principles, ensuring that the core functionality remains independent of infrastructure concerns.
 
