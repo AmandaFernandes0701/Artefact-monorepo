@@ -297,11 +297,19 @@ To set up and run the project locally, follow these steps:
    ```
 
 3. **Start the Development Server:**
+   
+   Backend: Navigate to the backend directory and execute:
+   
    ```bash
    npm run dev
    ```
-
-This workflow supports rapid development cycles, enabling continuous integration and agile iterations.
+   
+   Frontend: In a separate terminal, navigate to the frontend directory and execute:
+   ```bash
+   npm run dev
+   ```
+   
+This dual-run configuration ensures that both the backend and frontend are started simultaneously, thereby supporting rapid development cycles, continuous integration, and agile iterations.
 
 ---
 
