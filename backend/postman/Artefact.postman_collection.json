@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "b86d1ac8-8132-431c-9fd9-b425f7901e65",
+		"name": "Artefact",
+		"description": "### **Artefact Backend API Collection Description**\n\nThis Postman collection is a pre-configured suite of API endpoints designed for a simple task management application, developed as part of an internship challenge. It encapsulates a complete CRUD (Create, Read, Update, Delete) workflow and is engineered to facilitate rigorous testing and validation of the backend functionalities.\n\nStartFragment\n\n### **Validation Constraints and Possible Errors in the API Endpoints**\n\nWhen testing the API using Postman, consider the following validation constraints and possible error cases for each route. These ensure data integrity and prevent invalid operations.\n\n#### **1\\. Create Task (**`POST /api/trpc/tarefa.criar`**)**\n\n- **Validations:**\n    \n    - `titulo` (Title) is **required** and cannot be empty.\n        \n    - `descricao` (Description) is **optional**.\n        \n- **Possible Errors:**\n    \n    - **400 - BAD_REQUEST:** If `titulo` is missing or empty, the API will return `\"O título da tarefa é obrigatório.\"`\n        \n\n---\n\n#### **2\\. List Tasks (**`GET /api/trpc/tarefa.listar`**)**\n\n- **Validations:**\n    \n    - No specific validations are required for this route.\n        \n- **Possible Errors:**\n    \n    - This route does not return errors unless there is an internal server issue.\n        \n\n---\n\n#### **3\\. Update Task (** `POST /api/trpc/tarefa.atualizar`**)**\n\n- **Validations:**\n    \n    - `id` is required and must correspond to an existing task.\n        \n    - `titulo` is required and cannot be empty.\n        \n    - `descricao` is optional.\n        \n- **Possible Errors:**\n    \n    - **404 - NOT_FOUND:** If the `id` does not exist, the response will be `\"A tarefa com ID {id} não foi encontrada.\"`\n        \n    - **400 - BAD_REQUEST:** If `titulo` is empty, the API will return `\"O título da tarefa não pode estar vazio.\"`\n        \n\n---\n\n#### **4\\. Delete Task (**`POST /api/trpc/tarefa.deletar`**)**\n\n- **Validations:**\n    \n    - `id` is required and must correspond to an existing task.\n        \n- **Possible Errors:**\n    \n    - **404 - NOT_FOUND:** If the `id` does not exist, the response will be `\"A tarefa com ID {id} não foi encontrada.\"`\n        \n\n---\n\nThese constraints ensure that invalid operations are caught early, providing clear and structured error messages for debugging and API testing.\n\nStartFragment\n\n### **Why All Routes Use** **`POST`** **Except for** **`GET`**?\n\nIn traditional RESTful APIs, different HTTP methods are typically used for different operations:\n\n- `GET` → Retrieving data\n    \n- `POST` → Creating resources\n    \n- `PUT/PATCH` → Updating resources\n    \n- `DELETE` → Deleting resources\n    \n\nHowever, since this project is built using **tRPC**, the approach is slightly different.\n\n### **How tRPC Works Internally**\n\ntRPC is not a REST API framework; instead, it provides a **Remote Procedure Call (RPC) mechanism over HTTP** that allows frontend and backend to communicate **directly via function calls**, without needing manually defined API endpoints.\n\n**tRPC does not rely on RESTful principles**; instead, it sends all requests via a single HTTP method:\n\n- **All mutations (**`criar`**,** **`atualizar`**,**`deletar`**) are sent via **`POST`**\n    \n- **Only queries (**`listar`**) use** **`GET`**\n    \n\n### **Technical Explanation of HTTP Methods in tRPC**\n\n**Queries (**`GET`**)**\n\n- Queries in tRPC **only fetch data**.\n    \n- Since queries **don’t modify state**, they can be cached and optimized by the browser.\n    \n- The only route that needs a `GET` request is `listarTarefas`, because it **retrieves** the current list of tasks.\n    \n\n**Mutations (**`POST`**)**\n\n- Mutations are used to **create, update, or delete data**, which means they trigger state changes in the backend.\n    \n- All mutations (`criar`, `atualizar`, `deletar`) are sent via `POST` in tRPC.\n    \n- **Why not** **`PUT`**, **`PATCH`**, or **`DELETE`**?\n    \n    - The reason is **simplicity and consistency**.\n        \n    - Since tRPC is function-based and doesn’t rely on RESTful principles, it treats **all state-changing operations as mutations**, which are sent via `POST` with structured JSON payloads.\n        \n\nThis collection is ideal for developers seeking to test and interact with the backend API quickly, providing a robust, automated framework for validating the critical business functionalities of the application.\n\nEndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42482615",
+		"_collection_link": "https://interstellar-shuttle-703014.postman.co/workspace/My-Workspace~f245e760-a491-4601-88ad-9b7386da9e6a/collection/42482615-b86d1ac8-8132-431c-9fd9-b425f7901e65?action=share&source=collection_link&creator=42482615"
+	},
+	"item": [
+		{
+			"name": "Tarefas",
+			"item": [
+				{
+					"name": "Criar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica se a resposta foi bem-sucedida\r",
+									"pm.test(\"Tarefa criada com sucesso\", function () {\r",
+									"    pm.response.to.have.status(201); // Confirma que a resposta é de sucesso (status 201)\r",
+									"    pm.response.to.have.jsonBody(\"result.data.tarefa.id\"); // Ajustado para acessar o caminho correto do ID\r",
+									"});\r",
+									"\r",
+									"// Salva a ID da tarefa na variável de ambiente \"taskId\"\r",
+									"const jsonResponse = pm.response.json();\r",
+									"if (jsonResponse.result && jsonResponse.result.data && jsonResponse.result.data.tarefa && jsonResponse.result.data.tarefa.id) {\r",
+									"    pm.environment.set(\"taskId\", jsonResponse.result.data.tarefa.id);\r",
+									"} else {\r",
+									"    console.error(\"Erro: ID da tarefa não encontrado na resposta.\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Tarefa de Teste\",\r\n    \"descricao\": \"Esta é uma descrição padrão para testes.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/trpc/tarefa.criar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"trpc",
+								"tarefa.criar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cache-Control",
+								"value": "no-cache",
+								"name": "cache-control",
+								"type": "text"
+							},
+							{
+								"key": "Postman-Token",
+								"value": "<calculated when request is sent>",
+								"name": "postman-token",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "content-type",
+								"type": "text"
+							},
+							{
+								"key": "Content-Length",
+								"value": "<calculated when request is sent>",
+								"name": "content-length",
+								"type": "text"
+							},
+							{
+								"key": "Host",
+								"value": "<calculated when request is sent>",
+								"name": "host",
+								"type": "text"
+							},
+							{
+								"key": "User-Agent",
+								"value": "PostmanRuntime/7.39.1",
+								"name": "user-agent",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"name": "accept",
+								"type": "text"
+							},
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br",
+								"name": "accept-encoding",
+								"type": "text"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive",
+								"name": "connection",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/trpc/tarefa.listar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"trpc",
+								"tarefa.listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"{{taskId}}\",\r\n    \"titulo\": \"Título de Teste Atualizado\",\r\n    \"descricao\": \"Esta é uma descrição atualizada para testes.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/trpc/tarefa.atualizar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"trpc",
+								"tarefa.atualizar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"{{taskId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/trpc/tarefa.deletar",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"trpc",
+								"tarefa.deletar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
