@@ -18,8 +18,9 @@
     5. [Technology Stack & Rationale](#frontend-technology)
 4. [Project Structure & File Organization](#project-structure)
 5. [Running the Application](#running-app)
-6. [Future Enhancements](#future-enhancements)
-7. [Conclusion](#conclusion)
+6. [Testing backend with Postman](#testing-backend-with-postman)
+7. [Future Enhancements](#future-enhancements)
+8. [Conclusion](#conclusion)
 
 ---
 
@@ -311,6 +312,33 @@ To set up and run the project locally, follow these steps:
    
 This dual-run configuration ensures that both the backend and frontend are started simultaneously, thereby supporting rapid development cycles, continuous integration, and agile iterations.
 
+---
+Testing with Postman <a name="testing-postman"></a>
+For comprehensive API testing, we have integrated Postman as an automated testing tool. Our advanced setup includes the following features:
+
+Postman Environment Configuration:
+An environment file has been pre-configured to store the base URL (e.g., http://localhost:4000) along with other relevant variables such as authentication tokens or default headers. This configuration allows for seamless switching between local, staging, and production environments.
+
+Predefined Postman Collection:
+A fully automated Postman collection has been created which encompasses all tRPC endpoints. Each request in the collection is designed to mimic real-world API calls to our backend. For example, endpoints are structured as:
+
+bash
+Copiar
+Editar
+http://localhost:4000/api/trpc/[endpointName]
+where [endpointName] corresponds to operations such as createTask, listTasks, updateTask, and deleteTask.
+
+Automated Process Workflows:
+To streamline testing, scripts within Postman are set to automatically extract and store response data (e.g., the id of a created task) into environment variables. This facilitates subsequent requests such as updating or deleting a task by reusing the stored task ID.
+
+Technical Details on tRPC Integration:
+The API utilizes tRPC to enforce strict type safety and runtime validation. Each tRPC endpoint is mapped to a corresponding use case in the backend, ensuring that all business logic is executed consistently. The Postman collection is designed to validate the complete flow—from data validation via Zod to the invocation of business logic—and returns standardized error responses in case of failures.
+
+For your convenience, please find the links to the pre-configured Postman environment and collection below:
+
+Postman Environment
+Postman Collection
+These resources are provided to facilitate rapid, consistent, and reproducible testing of all backend routes locally via Postman.
 ---
 
 ## Future Enhancements <a name="future-enhancements"></a>
