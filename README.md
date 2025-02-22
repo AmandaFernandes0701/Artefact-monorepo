@@ -313,7 +313,7 @@ To set up and run the project locally, follow these steps:
 This dual-run configuration ensures that both the backend and frontend are started simultaneously, thereby supporting rapid development cycles, continuous integration, and agile iterations.
 
 ---
-Testing with Postman <a name="testing-postman"></a>
+## Testing backend with Postman <a name="testing-backend-with-postman"></a>
 For comprehensive API testing, we have integrated Postman as an automated testing tool. Our advanced setup includes the following features:
 
 Postman Environment Configuration:
