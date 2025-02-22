@@ -337,7 +337,7 @@ The API utilizes tRPC to enforce strict type safety and runtime validation. Each
 
 For your convenience, please find the links to the pre-configured Postman environment and collection below:
 
-[🔗 Postman Environment](https://app.getpostman.com/join-team?invite_code=bf2218af4b1e017aef65cb2aa2bf14fc691028db216e436c06eef2a25e6e665e&target_code=72cc7c16264c4baa124b568840d153b9)
+🔗 [Postman Environment](https://app.getpostman.com/join-team?invite_code=bf2218af4b1e017aef65cb2aa2bf14fc691028db216e436c06eef2a25e6e665e&target_code=72cc7c16264c4baa124b568840d153b9)
 
 - Postman Collection
   
