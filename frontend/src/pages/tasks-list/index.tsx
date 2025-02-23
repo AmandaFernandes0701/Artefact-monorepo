@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import Modal from '../../components/Modal';
 import Header from '../../components/Header';
