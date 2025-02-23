@@ -52,7 +52,8 @@ The backend is organized following a layered, Clean Architecture paradigm that e
  ┃ ┣ 📂 infrastructure           # External integrations (e.g., database adapters, API clients)  
  ┃ ┣ 📂 presentation             # API endpoints and controllers (e.g., TarefaRouter.js)  
  ┃ ┣ 📂 utils                    # Utility functions and centralized error handlers (e.g., errorHandler.js)  
- ┃ ┗ 📜 server.js                # Entry point for the backend server  
+ ┃ ┗ 📜 server.js                # Entry point for the backend server
+ ┣ 📂 postman                    # Contains pre-configured Postman Collection and Environment for easy API testing.  
  ┣ 📂 src                        # Original TypeScript source code  
  ┃ ┣ 📂 application              # Business logic use cases (e.g., TarefaUseCases.ts)  
  ┃ ┣ 📂 config                   # Environment configuration & settings (e.g., env.ts)  
@@ -230,16 +231,71 @@ State management is implemented using a combination of React Context and hooks, 
 The user interface is designed to be intuitive, responsive, and accessible:
 
 - **Minimalistic and Intuitive Layout:**  
-  The design prioritizes clarity and ease of navigation, ensuring that users can manage tasks effortlessly.
+The design prioritizes clarity and ease of navigation, enabling users to manage tasks effortlessly. By adopting atomic design principles, every UI element—from buttons to complex modals—is constructed as a reusable component. This modular approach not only streamlines development but also enhances consistency, ensuring that users encounter a predictable and coherent interface throughout the application.
   
 - **Responsive Design:**  
-  The application is optimized for various devices—desktop, tablet, and mobile—ensuring a consistent user experience across all platforms.
+Optimized for an array of devices—ranging from desktops to tablets and mobile phones—the interface utilizes responsive design techniques integrated with styled-components. This ensures that the layout dynamically adjusts to varying screen sizes and resolutions, providing a seamless and consistent experience regardless of the device.
   
-- **Accessibility:**  
-  Incorporates ARIA roles, keyboard navigability, and high-contrast themes, ensuring compliance with accessibility standards.
+- **Dynamic Theming and Visual Consistency:**  
+A sophisticated dual-theme system is implemented using styled-components, enabling runtime switching between Light Mode and Dark Mode. This dynamic theming is achieved through JavaScript-driven style encapsulation and CSS custom properties, ensuring high contrast ratios and adherence to accessibility standards. The visual consistency across themes reinforces usability, while the minimalistic aesthetic minimizes cognitive load, allowing users to focus on their tasks.
   
-- **Feedback Mechanisms:**  
-  Immediate visual feedback for user interactions, such as form validations and notifications (e.g., via React Toastify), improves overall usability.
+- **Modal Dialogs and Interaction Design:**
+ Critical user interactions, such as editing and deleting tasks, are managed via meticulously designed modal dialogs. These modals are not only responsive but are also tightly integrated with the application’s state management system to ensure context-aware interactions. Inline validation is a key feature—error messages are conspicuously displayed in a contrasting red immediately beneath the relevant input fields. This immediate feedback facilitates prompt error correction, thereby enhancing overall usability.
+ 
+-  **Accessibility and Feedback Mechanisms:**
+Accessibility is a cornerstone of the UI design. The interface incorporates ARIA roles, keyboard navigability, and high-contrast themes to meet stringent accessibility standards. Immediate visual feedback, including real-time form validations and notifications (e.g., via React Toastify), is provided to inform users about the outcomes of their actions, thereby reducing errors and streamlining the interaction flow.
+
+-  **Advanced Micro-interactions and Animation:**
+To further enrich the user experience, subtle animations and micro-interactions are integrated throughout the interface. These enhancements—such as smooth transitions, hover effects, and responsive feedback cues—add an additional layer of intuitiveness and engagement without detracting from the functional clarity of the design.
+
+-  **Visual Artifacts**
+
+    The following visual artifacts illustrate key aspects of the UI design and interaction paradigms:
+
+<details>
+<summary>Click here to see all screenshots from this project</summary>
+
+**Task Listing Screen (Light Mode):**
+
+![image](https://github.com/user-attachments/assets/f353bfeb-d435-4ced-a6e7-8658a56a503a)
+
+_Figure 1: Task Listing Screen in Light Mode_
+
+---
+
+**Task Listing Screen (Dark Mode):**
+
+![image](https://github.com/user-attachments/assets/9bac42fe-57fa-4315-a5ed-cd01b5d9eef9)
+
+_Figure 2: Task Listing Screen in Dark Mode_
+
+---
+
+**Edit Task Modal:**
+
+![image](https://github.com/user-attachments/assets/5908ed4a-828d-46f1-8382-67caac86f810)
+
+_Figure 3: Edit Task Modal_
+
+---
+
+**Edit Task Modal with Inline Error Messages:**
+
+![image](https://github.com/user-attachments/assets/193305c5-c100-4fcd-893a-a45e41fa91c0)
+
+_Figure 4: Edit Task Modal Displaying Inline Error Messages_
+
+---
+
+**Delete Task Modal:**
+
+![image](https://github.com/user-attachments/assets/27d40177-0ad0-407c-8c53-078cd4570e43)
+
+_Figure 5: Delete Task Modal_
+
+</details>
+
+In conclusion, the integration of minimalistic design, responsive layouts, dynamic theming, and robust accessibility features culminates in an exceptional user experience. This comprehensive approach not only meets but exceeds modern UX/UI standards, ensuring that the Task Management Application remains both aesthetically appealing and functionally robust.
 
 ### Technology Stack & Rationale <a name="frontend-technology"></a>
 
@@ -267,7 +323,7 @@ The frontend leverages modern frameworks and libraries to create a robust, high-
 The project is organized as a monorepo, which enhances consistency and simplifies dependency management between the backend and frontend. Key files and directories include:
 
 - **Root Files:**  
-  - `.gitignore` and `lista_arquivos.txt` – These files outline the project’s file inclusion rules and document the file structure.
+  - `.gitignore` – This file specifies which files and directories should be ignored by Git, preventing them from being tracked in version control.
   - `package.json` and `package-lock.json` – Define project-level dependencies and lockfile configurations.
 
 - **Backend Directory:**  
@@ -343,6 +399,25 @@ For your convenience, please find the links to the pre-configured Postman enviro
   
 These resources are provided to facilitate rapid, consistent, and reproducible testing of all backend routes locally via Postman.
 
+### Alternative Setup: Importing Postman Files Manually
+If you are unable to access the direct links, you can manually import the Postman Collection and Environment files, which are stored in the backend repository inside the postman/ folder.
+
+#### Importing the Postman Collection
+- Open Postman.
+- Click "File" > "Import" (or click the "Import" button in the top-left corner).
+- Select the file: postman/Artefact.postman_collection.json
+- Click "Open", and the collection will be added to your Postman workspace.
+
+#### Importing the Postman Environment
+- In Postman, go to the "Environments" tab.
+- Click on "Import".
+- Select the file: postman/Artefact.postman_environment.json
+- Click "Open", and the environment will be added.
+
+Make sure to activate the environment before making API requests.
+
+Once imported, you will have access to all pre-configured routes, including variables such as API base URL and task IDs, making testing faster and more reliable.
+
 ---
 
 ## Future Enhancements <a name="future-enhancements"></a>
@@ -371,6 +446,6 @@ Future improvements planned for the project include:
 
 ## Conclusion
 
-This Task Management Application embodies advanced software engineering principles through its robust architecture, deliberate technology choices, and rigorous adherence to best practices. The backend leverages Node.js, Express, tRPC, Zod, and TypeScript to deliver a highly scalable, type-safe API, while the frontend utilizes Next.js, React, and TypeScript to create a performant, maintainable, and responsive user interface. Furthermore, the monorepo structure and consistent file organization—reinforced by standardized naming in Portuguese—facilitate seamless collaboration and maintainability.
+This Task Management Application embodies advanced software engineering principles through its robust architecture, deliberate technology choices, and rigorous adherence to best practices. The backend leverages Node.js, Next.js, Express, tRPC, Zod, and TypeScript to deliver a highly scalable, type-safe API, while the frontend utilizes Next.js, React, and TypeScript to create a performant, maintainable, and responsive user interface. Furthermore, the monorepo structure and consistent file organization—reinforced by standardized naming in Portuguese—facilitate seamless collaboration and maintainability.
 
 The strategic decisions detailed herein, from the adoption of Clean Architecture to the use of atomic design for UI components, demonstrate a deep technical acumen and a forward-thinking approach that ensures the system’s adaptability and scalability. This document serves not only as a guide for current development but also as a robust foundation for future enhancements, ensuring that the application remains at the forefront of modern software engineering practices.
