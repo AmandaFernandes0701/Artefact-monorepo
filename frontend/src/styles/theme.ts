@@ -34,3 +34,21 @@ export const darkTheme = {
   fontFamily: "'Century Gothic', sans-serif",
   fontSize: '16px',
 };
+
+export const customStyles = {
+  overlay: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    zIndex: 999,
+  },
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+    background: 'transparent',
+    border: 'none',
+    padding: 0,
+  },
+};
+
