@@ -65,8 +65,8 @@ export const TaskListContainer = styled.div`
   overflow-y: auto;
   min-width: 30%;
 
-  @media (max-width: 1200px) {
-    min-width: 80%;
+  @media (max-width: 700px) {
+    width: 100%;
   }
 
   scrollbar-width: thin;
@@ -90,6 +90,8 @@ export const TaskListContainer = styled.div`
 
 export const TaskItem = styled.div`
   display: flex;
+  justify-content: center;
+  width: 400px;
   justify-content: space-between;
   align-items: center;
   background: ${({ theme }: { theme: Theme }) => theme.secondary};
@@ -97,6 +99,10 @@ export const TaskItem = styled.div`
   border-radius: 8px;
   padding: 15px;
   transition: transform 0.5s ease, box-shadow 0.5s ease;
+
+  @media (max-width: 500px) {
+    width: auto;
+  }
   
   &:hover {
     transform: translateY(-2px);
@@ -197,10 +203,6 @@ export const ModalContainer = styled.div`
   max-width: 500px;
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
-  @media (max-width: 800px) {
-    width: 80vw;
-  }
 `;
 
 export const ModalHeader = styled.div`
