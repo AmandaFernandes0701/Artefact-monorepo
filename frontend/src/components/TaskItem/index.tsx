@@ -19,10 +19,14 @@ const TaskItem: React.FC<TaskItemProps> = ({ tarefa, onEdit, onDelete }) => {
         <TaskDate>{new Date(tarefa.dataCriacao).toLocaleDateString('pt-BR')}</TaskDate>
       </div>
       <div>
-        <IconButton onClick={() => onEdit(tarefa)}>
+        <IconButton
+        title='Editar tarefa'
+        onClick={() => onEdit(tarefa)}>
           <EditIcon />
         </IconButton>
-        <IconButton onClick={() => onDelete(tarefa)}>
+        <IconButton
+        title='Deletar tarefa'
+        onClick={() => onDelete(tarefa)}>
           <DeleteIcon />
         </IconButton>
       </div>
