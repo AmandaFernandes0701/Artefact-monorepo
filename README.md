@@ -344,7 +344,7 @@ To set up and run the project locally, follow these steps:
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-repo/task-management-app.git
+   git clone https://github.com/AmandaFernandes0701/Artefact-monorepo.git
    cd task-management-app
    ```
 
