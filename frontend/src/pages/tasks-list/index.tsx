@@ -130,7 +130,6 @@ const TasksListPage: React.FC = () => {
                     tarefa={tarefa} 
                     onEdit={openTaskModal} 
                     onDelete={openDeleteModal} 
-                    role="listitem"
                   />
                 ) : null
               )
