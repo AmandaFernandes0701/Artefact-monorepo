@@ -9,11 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={lightTheme}>
       <GlobalStyle />
-      <ToastContainer 
-        autoClose={2000} 
-        pauseOnHover={true} 
-        limit={1}
-      />
+      <ToastContainer autoClose={2000} pauseOnHover={true} limit={1} />
       <Component {...pageProps} />
     </ThemeProvider>
   );

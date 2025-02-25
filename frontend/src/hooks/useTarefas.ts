@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
-import { criarTarefa, listarTarefas, atualizarTarefa, deletarTarefa } from '../services/tarefaService';
+import {
+  criarTarefa,
+  listarTarefas,
+  atualizarTarefa,
+  deletarTarefa,
+} from '../services/tarefaService';
 import { Tarefa } from '../models/Tarefa';
 
 export function useTarefas() {
@@ -21,12 +26,15 @@ export function useTarefas() {
     fetchData();
   }, []);
 
-  async function adicionarTarefa(novaTarefa: { titulo: string; descricao?: string }): Promise<Tarefa> {
+  async function adicionarTarefa(novaTarefa: {
+    titulo: string;
+    descricao?: string;
+  }): Promise<Tarefa> {
     setLoading(true);
     try {
       const response = await criarTarefa(novaTarefa);
       const tarefaCriada: Tarefa = response.tarefa;
-      setTarefas(prevTarefas => [...prevTarefas, tarefaCriada]);
+      setTarefas((prevTarefas) => [...prevTarefas, tarefaCriada]);
       return tarefaCriada;
     } catch (err) {
       setError(err);
@@ -36,13 +44,16 @@ export function useTarefas() {
     }
   }
 
-  async function editarTarefa(id: string, tarefaAtualizada: { titulo: string; descricao?: string }): Promise<void> {
+  async function editarTarefa(
+    id: string,
+    tarefaAtualizada: { titulo: string; descricao?: string }
+  ): Promise<void> {
     setLoading(true);
     try {
       const response = await atualizarTarefa(id, tarefaAtualizada);
       const tarefaEditada: Tarefa = response.tarefa;
-      setTarefas(prevTarefas =>
-        prevTarefas.map(tarefa => (tarefa.id === id ? tarefaEditada : tarefa))
+      setTarefas((prevTarefas) =>
+        prevTarefas.map((tarefa) => (tarefa.id === id ? tarefaEditada : tarefa))
       );
     } catch (err) {
       setError(err);
@@ -56,7 +67,7 @@ export function useTarefas() {
     setLoading(true);
     try {
       await deletarTarefa(id);
-      setTarefas(prevTarefas => prevTarefas.filter(tarefa => tarefa.id !== id));
+      setTarefas((prevTarefas) => prevTarefas.filter((tarefa) => tarefa.id !== id));
     } catch (err) {
       setError(err);
       throw err;

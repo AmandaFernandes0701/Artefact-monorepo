@@ -17,7 +17,10 @@ export const criarTarefa = async (tarefa: { titulo: string; descricao?: string }
   return await trpcClient.tarefa.criar.mutate(tarefa);
 };
 
-export const atualizarTarefa = async (id: string, tarefa: { titulo: string; descricao?: string }) => {
+export const atualizarTarefa = async (
+  id: string,
+  tarefa: { titulo: string; descricao?: string }
+) => {
   return await trpcClient.tarefa.atualizar.mutate({ id, ...tarefa });
 };
 

@@ -17,10 +17,10 @@ export const lightTheme = {
   background: '#ffffff',
   text: '#333333',
   primary: '#00BFFF',
-  primaryHover: 'rgba(0,191,255,0.6)', 
+  primaryHover: 'rgba(0,191,255,0.6)',
   secondary: '#f7f7f7',
   border: '#e0e0e0',
-  fontFamily: "'Century Gothic', sans-serif", 
+  fontFamily: "'Century Gothic', sans-serif",
   fontSize: '16px',
 };
 
@@ -51,4 +51,3 @@ export const customStyles = {
     padding: 0,
   },
 };
-

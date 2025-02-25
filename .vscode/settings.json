@@ -1,0 +1,21 @@
+{
+    // Formata o código ao salvar
+    "editor.formatOnSave": true,
+  
+    // Executa correções do ESLint ao salvar (se estiver configurado)
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+  
+    // Define o Prettier como formatador padrão para JS/TS/TSX
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+  }
+  

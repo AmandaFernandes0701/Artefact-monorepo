@@ -1,5 +1,8 @@
 import React from 'react';
-import { Header as StyledHeader, ThemeToggleContainer } from '../../pages/tasks-list/tasks-list.styles';
+import {
+  Header as StyledHeader,
+  ThemeToggleContainer,
+} from '../../pages/tasks-list/tasks-list.styles';
 import { IconButton as MuiIconButton } from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -22,7 +25,9 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleTheme, title = 'Lista
           {isDarkMode ? <LightModeIcon aria-hidden="true" /> : <DarkModeIcon aria-hidden="true" />}
         </MuiIconButton>
       </ThemeToggleContainer>
-      <h1 style={{ fontWeight: 'bold' }} aria-live="polite">{title}</h1>
+      <h1 style={{ fontWeight: 'bold' }} aria-live="polite">
+        {title}
+      </h1>
     </StyledHeader>
   );
 };

@@ -8,11 +8,7 @@ interface NewTaskButtonProps {
 
 const NewTaskButton: React.FC<NewTaskButtonProps> = ({ onClick }) => {
   return (
-    <StyledNewTaskButton
-      onClick={onClick}
-      title="Criar nova tarefa"
-      aria-label="Criar nova tarefa"
-    >
+    <StyledNewTaskButton onClick={onClick} title="Criar nova tarefa" aria-label="Criar nova tarefa">
       <AddIcon aria-hidden="true" /> Criar Nova Tarefa
     </StyledNewTaskButton>
   );

@@ -1,10 +1,10 @@
 import React from 'react';
-import { 
-  TaskItem as StyledTaskItem, 
-  TaskTitle, 
-  TaskDescription, 
-  TaskDate, 
-  IconButton 
+import {
+  TaskItem as StyledTaskItem,
+  TaskTitle,
+  TaskDescription,
+  TaskDate,
+  IconButton,
 } from '../../pages/tasks-list/tasks-list.styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';

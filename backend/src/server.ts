@@ -8,10 +8,12 @@ const app = express();
 
 const t = initTRPC.create();
 
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'OPTIONS'],
-}));
+app.use(
+  cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'OPTIONS'],
+  })
+);
 
 app.use(express.json());
 

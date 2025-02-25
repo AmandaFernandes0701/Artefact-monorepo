@@ -1,5 +1,5 @@
-import { Tarefa } from "../../domain/entities/Tarefa";
-import { TRPCError } from "@trpc/server";
+import { Tarefa } from '../../domain/entities/Tarefa';
+import { TRPCError } from '@trpc/server';
 
 export class TarefaUseCases {
   private tarefas: Tarefa[] = [];
@@ -7,8 +7,8 @@ export class TarefaUseCases {
   criarTarefa(titulo: string, descricao?: string) {
     if (!titulo) {
       throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: "O título da tarefa é obrigatório.",
+        code: 'BAD_REQUEST',
+        message: 'O título da tarefa é obrigatório.',
       });
     }
 
@@ -23,7 +23,7 @@ export class TarefaUseCases {
 
     return {
       success: true,
-      message: "Tarefa criada com sucesso!",
+      message: 'Tarefa criada com sucesso!',
       tarefa: novaTarefa,
     };
   }
@@ -31,7 +31,7 @@ export class TarefaUseCases {
   listarTarefas() {
     return {
       success: true,
-      message: "Lista de tarefas carregada com sucesso!",
+      message: 'Lista de tarefas carregada com sucesso!',
       tarefas: this.tarefas,
     };
   }
@@ -40,15 +40,15 @@ export class TarefaUseCases {
     const tarefa = this.tarefas.find((t) => t.id === id);
     if (!tarefa) {
       throw new TRPCError({
-        code: "NOT_FOUND",
+        code: 'NOT_FOUND',
         message: `A tarefa com ID ${id} não foi encontrada.`,
       });
     }
 
     if (!titulo) {
       throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: "O título da tarefa não pode estar vazio.",
+        code: 'BAD_REQUEST',
+        message: 'O título da tarefa não pode estar vazio.',
       });
     }
 
@@ -57,7 +57,7 @@ export class TarefaUseCases {
 
     return {
       success: true,
-      message: "Tarefa atualizada com sucesso!",
+      message: 'Tarefa atualizada com sucesso!',
       tarefa,
     };
   }
@@ -66,7 +66,7 @@ export class TarefaUseCases {
     const index = this.tarefas.findIndex((t) => t.id === id);
     if (index === -1) {
       throw new TRPCError({
-        code: "NOT_FOUND",
+        code: 'NOT_FOUND',
         message: `A tarefa com ID ${id} não foi encontrada.`,
       });
     }
@@ -75,7 +75,7 @@ export class TarefaUseCases {
 
     return {
       success: true,
-      message: "Tarefa deletada com sucesso!",
+      message: 'Tarefa deletada com sucesso!',
     };
   }
 }

@@ -6,12 +6,14 @@ export const FundoDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   margin: 0;
-  height: 100%; 
+  height: 100%;
   background: ${({ theme }: { theme: Theme }) => theme.background};
   color: ${({ theme }: { theme: Theme }) => theme.text};
-  transition: background 0.5s ease, color 0.5s ease;
+  transition:
+    background 0.5s ease,
+    color 0.5s ease;
 `;
 
 export const Container = styled.div`
@@ -24,7 +26,9 @@ export const Container = styled.div`
   height: fit-content;
   background: ${({ theme }: { theme: Theme }) => theme.background};
   color: ${({ theme }: { theme: Theme }) => theme.text};
-  transition: background 0.5s ease, color 0.5s ease;
+  transition:
+    background 0.5s ease,
+    color 0.5s ease;
 `;
 
 export const Header = styled.header`
@@ -50,7 +54,7 @@ export const ToggleButton = styled.button`
   cursor: pointer;
   font-size: 0.9rem;
   transition: background 0.5s ease;
-  
+
   &:hover {
     background: transparent;
   }
@@ -70,7 +74,8 @@ export const TaskListContainer = styled.div`
   }
 
   scrollbar-width: thin;
-  scrollbar-color: ${({ theme }) => theme.scrollThumbColor} ${({ theme }) => theme.scrollTrackBackground};
+  scrollbar-color: ${({ theme }) => theme.scrollThumbColor}${({ theme }) =>
+      theme.scrollTrackBackground};
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -82,11 +87,10 @@ export const TaskListContainer = styled.div`
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.scrollThumbColor}; 
+    background: ${({ theme }) => theme.scrollThumbColor};
     border-radius: 2px;
   }
 `;
-
 
 export const TaskItem = styled.div`
   display: flex;
@@ -98,15 +102,17 @@ export const TaskItem = styled.div`
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.border};
   border-radius: 8px;
   padding: 15px;
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
 
   @media (max-width: 500px) {
     width: auto;
   }
-  
+
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 `;
 
@@ -133,8 +139,10 @@ export const IconButton = styled.button`
   color: ${({ theme }: { theme: Theme }) => theme.primary};
   cursor: pointer;
   margin-left: 10px;
-  transition: color 0.5s ease, transform 0.5s ease;
-  
+  transition:
+    color 0.5s ease,
+    transform 0.5s ease;
+
   &:hover {
     color: ${({ theme }: { theme: Theme }) => theme.text};
     transform: scale(1.1);
@@ -188,7 +196,7 @@ export const ModalOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
   z-index: 999;
@@ -238,10 +246,10 @@ export const ModalBody = styled.div`
 export const ModalInput = styled.input`
   padding: 10px;
   background-color: ${({ theme }: { theme: Theme }) =>
-  theme.background === '#121212' ? '#333' : '#fff'};
+    theme.background === '#121212' ? '#333' : '#fff'};
   color: ${({ theme }: { theme: Theme }) => theme.text};
-  border: 1px solid ${({ theme }: { theme: Theme }) =>
-    theme.background === '#121212' ? '#444' : theme.border};
+  border: 1px solid
+    ${({ theme }: { theme: Theme }) => (theme.background === '#121212' ? '#444' : theme.border)};
   border-radius: 4px;
   font-size: 1rem;
 `;
@@ -251,8 +259,8 @@ export const ModalTextarea = styled.textarea`
   background-color: ${({ theme }: { theme: Theme }) =>
     theme.background === '#121212' ? '#333' : '#fff'};
   color: ${({ theme }: { theme: Theme }) => theme.text};
-  border: 1px solid ${({ theme }: { theme: Theme }) =>
-    theme.background === '#121212' ? '#444' : theme.border};
+  border: 1px solid
+    ${({ theme }: { theme: Theme }) => (theme.background === '#121212' ? '#444' : theme.border)};
   border-radius: 4px;
   font-size: 1rem;
   resize: vertical;

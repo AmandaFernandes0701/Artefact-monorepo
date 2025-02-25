@@ -3,8 +3,8 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: "/",
-        destination: "/tasks-list",
+        source: '/',
+        destination: '/tasks-list',
       },
     ];
   },
