@@ -17,11 +17,12 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleTheme, title = 'Lista
         <MuiIconButton
           onClick={toggleTheme}
           title={isDarkMode ? 'Mudar para tema claro' : 'Mudar para tema escuro'}
+          aria-label={isDarkMode ? 'Mudar para tema claro' : 'Mudar para tema escuro'}
         >
-          {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
+          {isDarkMode ? <LightModeIcon aria-hidden="true" /> : <DarkModeIcon aria-hidden="true" />}
         </MuiIconButton>
       </ThemeToggleContainer>
-      <h1 style={{ fontWeight: 'bold' }}>{title}</h1>
+      <h1 style={{ fontWeight: 'bold' }} aria-live="polite">{title}</h1>
     </StyledHeader>
   );
 };

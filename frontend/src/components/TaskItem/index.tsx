@@ -1,5 +1,11 @@
 import React from 'react';
-import { TaskItem as StyledTaskItem, TaskTitle, TaskDescription, TaskDate, IconButton } from '../../pages/tasks-list/tasks-list.styles';
+import { 
+  TaskItem as StyledTaskItem, 
+  TaskTitle, 
+  TaskDescription, 
+  TaskDate, 
+  IconButton 
+} from '../../pages/tasks-list/tasks-list.styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Tarefa } from '../../models/Tarefa';
@@ -12,21 +18,27 @@ interface TaskItemProps {
 
 const TaskItem: React.FC<TaskItemProps> = ({ tarefa, onEdit, onDelete }) => {
   return (
-    <StyledTaskItem>
+    <StyledTaskItem role="article" aria-labelledby={`task-title-${tarefa.id}`}>
       <div>
-        <TaskTitle>{tarefa.titulo}</TaskTitle>
+        <TaskTitle id={`task-title-${tarefa.id}`}>{tarefa.titulo}</TaskTitle>
         <TaskDescription>{tarefa.descricao}</TaskDescription>
         <TaskDate>{new Date(tarefa.dataCriacao).toLocaleDateString('pt-BR')}</TaskDate>
       </div>
       <div>
         <IconButton
-        title='Editar tarefa'
-        onClick={() => onEdit(tarefa)}>
+          title="Editar tarefa"
+          aria-label="Editar tarefa"
+          aria-describedby={`task-title-${tarefa.id}`}
+          onClick={() => onEdit(tarefa)}
+        >
           <EditIcon />
         </IconButton>
         <IconButton
-        title='Deletar tarefa'
-        onClick={() => onDelete(tarefa)}>
+          title="Deletar tarefa"
+          aria-label="Deletar tarefa"
+          aria-describedby={`task-title-${tarefa.id}`}
+          onClick={() => onDelete(tarefa)}
+        >
           <DeleteIcon />
         </IconButton>
       </div>

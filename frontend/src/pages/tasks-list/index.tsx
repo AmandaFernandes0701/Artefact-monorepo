@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { ThemeProvider } from 'styled-components';
 import Modal from '../../components/Modal';
 import Header from '../../components/Header';
@@ -33,11 +33,16 @@ const TasksListPage: React.FC = () => {
   const [tarefaADeletar, setTarefaADeletar] = useState<Tarefa | null>(null);
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
 
-  const { tarefas, loading, error, adicionarTarefa, editarTarefa, removerTarefa } = useTarefas();
+  const { tarefas, loading, adicionarTarefa, editarTarefa, removerTarefa } = useTarefas();
 
-  const toggleTheme = () => setIsDarkMode(prev => !prev);
+  const theme = useMemo(() => (isDarkMode ? darkTheme : lightTheme), [isDarkMode]);
+  const toastStyle = useMemo(() => ({ background: theme.background }), [theme.background]);
 
-  const openTaskModal = (tarefa?: Tarefa) => {
+  const toggleTheme = useCallback(() => {
+    setIsDarkMode(prev => !prev);
+  }, []);
+
+  const openTaskModal = useCallback((tarefa?: Tarefa) => {
     if (tarefa) {
       setTarefaAtual(tarefa);
       setModalTitulo(tarefa.titulo);
@@ -48,15 +53,15 @@ const TasksListPage: React.FC = () => {
       setModalDescricao('');
     }
     setIsTaskModalOpen(true);
-  };
+  }, []);
 
-  const closeTaskModal = () => {
+  const closeTaskModal = useCallback(() => {
     setIsTaskModalOpen(false);
     setTarefaAtual(null);
     setFormErrors({});
-  };
+  }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     setFormErrors({});
   
@@ -68,14 +73,10 @@ const TasksListPage: React.FC = () => {
           descricao: modalDescricao,
         };
         await editarTarefa(tarefaAtual.id, updatedTarefa);
-        toast.success("Tarefa atualizada com sucesso!", {
-          style: { background: theme.background },
-        });
+        toast.success("Tarefa atualizada com sucesso!", { style: toastStyle });
       } else {
         await adicionarTarefa({ titulo: modalTitulo, descricao: modalDescricao });
-        toast.success("Tarefa criada com sucesso!", {
-          style: { background: theme.background },
-        });
+        toast.success("Tarefa criada com sucesso!", { style: toastStyle });
       }
       closeTaskModal();
     } catch (error: any) {
@@ -88,29 +89,25 @@ const TasksListPage: React.FC = () => {
       });
       setFormErrors(formattedErrors);
     }
-  };
-  
-  const openDeleteModal = (tarefa: Tarefa) => {
+  }, [tarefaAtual, modalTitulo, modalDescricao, editarTarefa, adicionarTarefa, toastStyle, closeTaskModal]);
+
+  const openDeleteModal = useCallback((tarefa: Tarefa) => {
     setTarefaADeletar(tarefa);
     setIsDeleteModalOpen(true);
-  };
+  }, []);
 
-  const closeDeleteModal = () => {
+  const closeDeleteModal = useCallback(() => {
     setIsDeleteModalOpen(false);
     setTarefaADeletar(null);
-  };
+  }, []);
 
-  const confirmDelete = async () => {
+  const confirmDelete = useCallback(async () => {
     if (tarefaADeletar) {
       await removerTarefa(tarefaADeletar.id);
-      toast.success("Tarefa deletada com sucesso!", {
-        style: { background: theme.background },
-      });
+      toast.success("Tarefa deletada com sucesso!", { style: toastStyle });
     }
     closeDeleteModal();
-  };
-
-  const theme = isDarkMode ? darkTheme : lightTheme;
+  }, [tarefaADeletar, removerTarefa, toastStyle, closeDeleteModal]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -118,9 +115,9 @@ const TasksListPage: React.FC = () => {
         <Container>
           <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
           
-          <TaskListContainer>
+          <TaskListContainer role="list">
             {loading && (
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", alignSelf: "center" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", alignSelf: "center" }} role="status">
                 <ClipLoader color={theme.primary} size={15} cssOverride={{ borderWidth: '4px' }} />
                 <p>Carregando tarefas...</p>
               </div>
@@ -133,6 +130,7 @@ const TasksListPage: React.FC = () => {
                     tarefa={tarefa} 
                     onEdit={openTaskModal} 
                     onDelete={openDeleteModal} 
+                    role="listitem"
                   />
                 ) : null
               )
@@ -145,26 +143,28 @@ const TasksListPage: React.FC = () => {
             )}
           </TaskListContainer>
 
-          <NewTaskButton onClick={() => openTaskModal()} />
+          <NewTaskButton onClick={() => openTaskModal()} aria-label="Adicionar nova tarefa" />
 
           <Modal isOpen={isTaskModalOpen} onRequestClose={closeTaskModal}>
-            <ModalContainer>
+            <ModalContainer role="dialog" aria-modal="true" aria-labelledby="modal-title">
               <ModalHeader>
-                <ModalTitle>{tarefaAtual ? 'Editar Tarefa' : 'Nova Tarefa'}</ModalTitle>
-                <ModalCloseButton onClick={closeTaskModal}>×</ModalCloseButton>
+                <ModalTitle id="modal-title">{tarefaAtual ? 'Editar Tarefa' : 'Nova Tarefa'}</ModalTitle>
+                <ModalCloseButton onClick={closeTaskModal} aria-label="Fechar Modal">×</ModalCloseButton>
               </ModalHeader>
               <ModalBody>
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <label>Título</label>
+                  <label htmlFor="modal-titulo">Título</label>
                   <ModalInput
+                    id="modal-titulo"
                     value={modalTitulo}
                     onChange={e => setModalTitulo(e.target.value)}
                   />
                   {formErrors.titulo && (
                     <p style={{ color: 'red', fontSize: '14px' }}>{formErrors.titulo}</p>
                   )}
-                  <label>Descrição</label>
+                  <label htmlFor="modal-descricao">Descrição</label>
                   <ModalTextarea 
+                    id="modal-descricao"
                     style={{ maxHeight: '250px', minHeight: '25px' }}
                     value={modalDescricao}
                     onChange={e => setModalDescricao(e.target.value)}
@@ -182,10 +182,10 @@ const TasksListPage: React.FC = () => {
           </Modal>
 
           <Modal isOpen={isDeleteModalOpen} onRequestClose={closeDeleteModal}>
-            <ModalContainer>
+            <ModalContainer role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
               <ModalHeader>
-                <ModalTitle>Confirmar Exclusão</ModalTitle>
-                <ModalCloseButton onClick={closeDeleteModal}>×</ModalCloseButton>
+                <ModalTitle id="delete-modal-title">Confirmar Exclusão</ModalTitle>
+                <ModalCloseButton onClick={closeDeleteModal} aria-label="Fechar Modal">×</ModalCloseButton>
               </ModalHeader>
               <ModalBody>
                 <p style={{ textAlign: 'center' }}>
